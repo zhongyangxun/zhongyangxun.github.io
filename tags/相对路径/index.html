@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>钟阳勋</title>
+  <title>Tag: 相对路径 | 钟阳勋</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="钟阳勋">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/相对路径/index.html">
 <meta property="og:site_name" content="钟阳勋">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="钟阳勋">
@@ -131,157 +131,52 @@
       <div class="body-wrap">
         
   
-    <article id="post-相对路径与绝对路径" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
+  
     
     
-      <header class="article-header">
-        
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/08/21/相对路径与绝对路径/" class="archive-article-date">
+  	<time datetime="2017-08-21T15:35:31.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-08-21</time>
+</a>
+        </div>
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/相对路径与绝对路径/">相对路径与绝对路径</a>
+      <a class="archive-article-title" href="/2017/08/21/相对路径与绝对路径/">相对路径与绝对路径</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>对于相对路径和绝对路径的了解一直以来都不甚清晰，只知道从根目录开始的是绝对路径，相对于当前文件的是相对路径。</p>
-<p>之前写代码所用的URL是相对路径，类似于这种：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">background-image:url(img/beatles.jpg)</div></pre></td></tr></table></figure></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/jquery.min.js"</span> &gt;</span><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="xml"></span></span></div><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/blur.jpg"</span> &gt;</span></div></pre></td></tr></table></figure>
-<p>直到开始学习Vue.js，在代码里出现的路径如 :</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span></div></pre></td></tr></table></figure>
-<p>就有点懵，<code>App</code>前面的那个<code>./</code>是什么鬼？<br>完全不知道是为什么要这么写，才想起来去Google。</p>
-<p>关于相对路径和绝对路径的规则，总结如下：</p>
-<ol>
-<li>绝对路径是从根目录一直到目的文件的完整路径</li>
-<li>相对路径是一部分的路径，其表示的位置取决于特定的前缀</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>前缀</th>
-<th>含义</th>
-<th>种类</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>.</code></td>
-<td>表示当前目录</td>
-<td>相对路径</td>
-</tr>
-<tr>
-<td>没有前缀</td>
-<td>当前目录</td>
-<td>相对路径</td>
-</tr>
-<tr>
-<td><code>..</code></td>
-<td>表示上一层目录</td>
-<td>相对路径</td>
-</tr>
-<tr>
-<td><code>/</code></td>
-<td>代表根目录</td>
-<td>绝对路径</td>
-</tr>
-<tr>
-<td><code>D:/</code></td>
-<td>当然是根目录</td>
-<td>绝对路径</td>
-</tr>
-</tbody>
-</table>
-<p><em>注：上面的 <code>/</code>等同于 <code>D:/</code></em></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2017/08/21/相对路径与绝对路径/" class="archive-article-date">
-  	<time datetime="2017-08-21T15:35:31.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-08-21</time>
-</a>
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-js/">vue.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/相对路径/">相对路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/绝对路径/">绝对路径</a></li></ul>
 	</div>
 
-      
+          
 
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-
-
-
-
-
-
-
-
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/04/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/04/hello-world/" class="archive-article-date">
-  	<time datetime="2016-11-04T11:37:16.026Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-04</time>
-</a>
-      
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-  
 
 
       </div>
@@ -303,10 +198,10 @@
 		fancybox: true,
 		mathjax: false,
 		animate: true,
-		isHome: true,
+		isHome: false,
 		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
