@@ -181,7 +181,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -191,7 +191,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -257,7 +257,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-29T21:05:12+08:00">
                 2018-09-29
@@ -299,7 +299,42 @@
       
         
           
-            
+            <p>初次接触到 Vim 是在 Git 命令行中。改写提交的 <code>git commit --amend</code> 命令执行后，需要按下 <code>i</code> 才能修改 commit 信息，修改之后需要按下 <code>Esc</code> 然后输入 <code>:wq</code> 来保存修改并退出，若不想保存修改可输入 <code>:q</code> 退出。<br>最近的工作中涉及到在虚拟机里面编辑简单的文本，自然要用到 Vim，可还不知道怎么在 Vim 里面进行复制粘贴的基本操作呢，于是搜索一番，并记录下一些基本的操作。</p>
+<h3 id="新建-打开文件"><a href="#新建-打开文件" class="headerlink" title="新建/打开文件"></a>新建/打开文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$vim filename</div></pre></td></tr></table></figure>
+<p>该命令可打开文件，如果文件不存在，则新建一个文件。</p>
+<h3 id="编辑文件"><a href="#编辑文件" class="headerlink" title="编辑文件"></a>编辑文件</h3><p><code>i</code> 进入 Insert 模式，终端窗口下方可见 <code>Insert</code> 字样。此时可进行文件的编辑。<br>Insert 模式下，按下 <code>Esc</code> 退出该模式，输入 <code>:q</code> 退出，<code>:q!</code> 退出并忽略修改，<code>:wq</code> 保存并退出。</p>
+<h3 id="光标移动"><a href="#光标移动" class="headerlink" title="光标移动"></a>光标移动</h3><p>键盘上的上下左右即可实现光标移动，此外以下按键也可移动光标：</p>
+<ul>
+<li><code>h</code> 向左</li>
+<li><code>j</code> 向下</li>
+<li><code>k</code> 向上</li>
+<li><code>l</code> 向右</li>
+</ul>
+<h3 id="复制粘贴"><a href="#复制粘贴" class="headerlink" title="复制粘贴"></a>复制粘贴</h3><p>首先按下 <code>v</code> 进入 Vim 的 Visual 模式，移动光标可选择文本。<br><code>y</code> 可将选中的文本复制到剪贴板，<code>d</code> 则是剪切。<br><code>p</code> 可实现粘贴。</p>
+<h3 id="查找-替换"><a href="#查找-替换" class="headerlink" title="查找/替换"></a>查找/替换</h3><h4 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h4><ul>
+<li><code>:/cat</code> 向下查找cat</li>
+<li><code>?/cat</code> 向上查找cat</li>
+<li><code>n</code> 下一个匹配</li>
+<li><code>N</code> 上一个匹配<h4 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h4></li>
+<li><code>:s/cat/dog</code> 替换当前行的第一个 cat 为 dog</li>
+<li><code>:s/cat/dog/g</code> 替换当前行所有 cat 为 dog</li>
+<li><code>:%s/cat/dog</code> 替换所有行第一个 cat 为 dog</li>
+<li><code>%s/cat/dog/g</code> 替换所有 cat 为 dog</li>
+</ul>
+<h3 id="行跳转-翻页"><a href="#行跳转-翻页" class="headerlink" title="行跳转/翻页"></a>行跳转/翻页</h3><ul>
+<li><code>:n</code> 跳转到第 n 行</li>
+<li><code>Ctrl</code> + <code>f</code> (forward)下一页</li>
+<li><code>Ctrl</code> + <code>b</code> (backward) 上一页<h3 id="删除-插入行"><a href="#删除-插入行" class="headerlink" title="删除/插入行"></a>删除/插入行</h3></li>
+<li><code>dd</code> 删除当前行</li>
+<li><code>o</code> 向下插入一行</li>
+<li><code>O</code> 向上插入一行</li>
+</ul>
+<h3 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h3><ul>
+<li><code>u</code> (undo) 撤销操作</li>
+<li><code>Ctrl</code> + <code>r</code>（redo) 恢复操作</li>
+</ul>
+<p>以上即是 Vim 的一些操作，可应付简单的文本处理。</p>
+
           
         
       
@@ -376,7 +411,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-09T14:55:53+08:00">
                 2018-03-09
@@ -521,7 +556,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-21T23:35:31+08:00">
                 2017-08-21
@@ -693,7 +728,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
@@ -705,8 +740,8 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">6</span>
-                  <span class="site-state-item-name">Tags</span>
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">tags</span>
                 
               </div>
             
@@ -752,7 +787,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
