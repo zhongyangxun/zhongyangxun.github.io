@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>Vuex 基本使用 | zhongyangxun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="简单介绍查看官方文档可以知道：
+
+Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。
+
+怎么理解呢？就拿我两位数的资产的银行卡来说吧，基本的存钱取钱，就是状态管理。
+怎么用我们将以一个简单的 Todo 作为例子，来讲解 Vuex 的基本使用。
+安装1npm install vuex --save
+初始化首先需要在项目的 src 目录下，新建一个 Vuex 的目录 store，结构如下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vuex 基本使用">
+<meta property="og:url" content="http://yoursite.com/2019/07/20/Vuex基本使用/index.html">
+<meta property="og:site_name" content="zhongyangxun">
+<meta property="og:description" content="简单介绍查看官方文档可以知道：
+
+Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。
+
+怎么理解呢？就拿我两位数的资产的银行卡来说吧，基本的存钱取钱，就是状态管理。
+怎么用我们将以一个简单的 Todo 作为例子，来讲解 Vuex 的基本使用。
+安装1npm install vuex --save
+初始化首先需要在项目的 src 目录下，新建一个 Vuex 的目录 store，结构如下">
+<meta property="og:image" content="http://yoursite.com/image/vuex-base/tree.PNG">
+<meta property="og:image" content="http://yoursite.com/image/vuex-base/getter-render.PNG">
+<meta property="og:image" content="http://yoursite.com/images/vuex-base/mutation-interface.PNG">
+<meta property="og:image" content="http://yoursite.com/images/vuex-base/mutations-vue-devtool.PNG">
+<meta property="og:image" content="http://yoursite.com/images/vuex-base/mutations-console.PNG">
+<meta property="og:updated_time" content="2019-07-20T05:48:55.679Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vuex 基本使用">
+<meta name="twitter:description" content="简单介绍查看官方文档可以知道：
+
+Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。
+
+怎么理解呢？就拿我两位数的资产的银行卡来说吧，基本的存钱取钱，就是状态管理。
+怎么用我们将以一个简单的 Todo 作为例子，来讲解 Vuex 的基本使用。
+安装1npm install vuex --save
+初始化首先需要在项目的 src 目录下，新建一个 Vuex 的目录 store，结构如下">
+<meta name="twitter:image" content="http://yoursite.com/image/vuex-base/tree.PNG">
+  
+    <link rel="alternative" href="/atom.xml" title="zhongyangxun" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="./images/head.jpg" class="js-avatar show">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">钟阳勋</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/随笔">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/ZhongYangXun" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/5321847680/" title="weibo">weibo</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">钟阳勋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="./images/head.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">钟阳勋</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/ZhongYangXun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/5321847680/" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-Vuex基本使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vuex 基本使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><p>查看<a href="https://vuex.vuejs.org/zh/" target="_blank" rel="external">官方文档</a>可以知道：</p>
+<blockquote>
+<p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。</p>
+</blockquote>
+<p>怎么理解呢？就拿我两位数的资产的银行卡来说吧，基本的存钱取钱，就是状态管理。</p>
+<h2 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h2><p>我们将以一个简单的 Todo 作为例子，来讲解 Vuex 的基本使用。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install vuex --save</div></pre></td></tr></table></figure>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>首先需要在项目的 src 目录下，新建一个 Vuex 的目录 store，结构如下：<br><img src="/image/vuex-base/tree.PNG" alt=""></p>
+<p>初始化 Vuex：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// index.js</span></div><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line"><span class="keyword">import</span> state <span class="keyword">from</span> <span class="string">'./state.js'</span></div><div class="line"></div><div class="line">Vue.use(Vuex)</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store(&#123;</div><div class="line">  state</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>引入 Vuex 是理所当然的，除此之外执行 <code>Vue.use(Vuex)</code> 来全局安装 Vuex. <code>Vuex.Store</code> 即 Vuex 的构造函数，来初始化 Vuex 实例。这里可以看到，我们在 Vuex 构造函数中传入了一个 <code>state</code> 选项，那这个 state 是什么呢？</p>
+<h3 id="State"><a href="#State" class="headerlink" title="State"></a>State</h3><p>State 从字面意思理解，就是状态，在 Vuex 里面，什么代表了状态呢？数据。State 是 Vuex 这一状态管理工具的唯一的数据源，所有的数据都储存在里面。<br>State 的写法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// state.js</span></div><div class="line"><span class="keyword">const</span> state = &#123;</div><div class="line">  <span class="attr">todoList</span>: <span class="built_in">JSON</span>.parse(localStorage.getItem(<span class="string">'todoList'</span>)) || []</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> state</div></pre></td></tr></table></figure>
+<p>这里声明了一个 state, 里面有一个 todoList 的字段，todoList 的数据是去 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage" target="_blank" rel="external">localStorage</a> 里面拿的，如果没有，就是一个空数组。<br>好了，现在我们的状态已经有了，接下来就是要在组件里面，获取这个 state, 也就是让我们的组件拿到这里的数据。</p>
+<h3 id="Getter"><a href="#Getter" class="headerlink" title="Getter"></a>Getter</h3><p>Getter, 顾名思义，就是一个“取”的操作，来拿 state 里面的数据。Getter 的写法如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// getters.js</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> todoList = <span class="function"><span class="params">state</span> =&gt;</span> state.todoList</div></pre></td></tr></table></figure>
+<p>这里声明并输出了一个 <code>todoList</code> 函数，函数的参数是 <code>state</code>, 返回值  <code>state.todoList</code>.<br>Getter 函数接受 state 作为它的第一个参数。这里我们就取到了上一节 state 里面的 todoList.<br>在需要 todoList 数据的组件当中，可以利用 <code>mapGetters</code> 将数据映射到计算属性。写法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; mapGetters &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">export <span class="keyword">default</span> &#123;</div><div class="line">  ...</div><div class="line">  computed: &#123;</div><div class="line">    ...mapGetters([</div><div class="line">      <span class="string">'todoList'</span></div><div class="line">    ])</div><div class="line">  &#125;</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用的时候，和普通的计算属性别无二致:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"todo-list"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"(item, index) in todoList"</span> <span class="attr">:key</span>=<span class="string">"index"</span> <span class="attr">class</span>=<span class="string">"todo-item"</span> &gt;</span></div><div class="line">      ...</div><div class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这样，<code>todoList</code> 就被渲染到了页面中：<br><img src="/image/vuex-base/getter-render.PNG" alt="todoList"></p>
+<p>当然，不管是标记一个事项为完成，还是添加删除事项，todoList 都会产生变化，也就是 state 会变化。那我们怎么去改变 state 呢？这就需要 mutation 的帮助 。</p>
+<h3 id="Mutation"><a href="#Mutation" class="headerlink" title="Mutation"></a>Mutation</h3><p>Mutation 是 Vuex 当中改变 state 唯一的方法。Mutation 使用与事件处理函数非常相似，都具有类型和回调函数。<br>这里把 mutation 比作事件，首先来规定“事件类型”：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// mutation-types.js</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> SET_TODO_LIST = <span class="string">'SET_TODO_LIST'</span></div></pre></td></tr></table></figure>
+<p>这里规定了一个 <code>SET_TODO_LIST</code> 的类型。<br>类型是不可变的，所以我们将其声明为常量。<br>然后再来写“事件”的“回调”：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// mutations.js</span></div><div class="line"><span class="keyword">import</span> * <span class="keyword">as</span> types <span class="keyword">from</span> <span class="string">'./mutation-types'</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> mutations = &#123;</div><div class="line">  [types.SET_TODO_LIST] (state, todoList) &#123;</div><div class="line">    state.todoList = todoList</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> mutations</div></pre></td></tr></table></figure>
+<p>可以看到， mutations 是一个对象，一个“事件类型”就对应可一个处理函数。处理函数接受 <code>state</code> 作为它的第一个参数，第二个参数是额外的，一般称之为“荷载 (payload) ”。<br>这里我们的荷载是一个 <code>todoList</code>，这个处理函数将 <code>state</code> 原来的 <code>todoList</code> 改为传入的荷载。<br>要使用 mutations，在 Vuex 的构造函数中，就要将 <code>mutations</code> 选项加进去：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line"><span class="keyword">import</span> state <span class="keyword">from</span> <span class="string">'./state.js'</span></div><div class="line"><span class="keyword">import</span> * <span class="keyword">as</span> getters <span class="keyword">from</span> <span class="string">'./getters'</span></div><div class="line"><span class="keyword">import</span> mutations <span class="keyword">from</span> <span class="string">'./mutations'</span></div><div class="line"><span class="keyword">import</span> createLogger <span class="keyword">from</span> <span class="string">'vuex/dist/logger'</span></div><div class="line"></div><div class="line">Vue.use(Vuex)</div><div class="line"></div><div class="line"><span class="keyword">const</span> debug = process.env.NODE_ENV !== <span class="string">'production'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store(&#123;</div><div class="line">  state,</div><div class="line">  getters,</div><div class="line">  mutations,</div><div class="line">  <span class="attr">plugins</span>: debug ? [createLogger()] : []</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>现在，构造函数中已经传入了 <code>mutations</code>，接下来，就是在组件中使用 mutations（这里的第四个选项 <code>plugins</code> 并不影响 mutation 的功能，用途是在控制台打印 Vuex 操作的信息）.</p>
+<p>TodoList 组件中，我们在“添加事项”这一动作提交 mutation, 改变 state.<br>组件内的代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// todo-list.vue</span></div><div class="line">  <span class="keyword">import</span> &#123; mapGetters, mapMutations &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line"></div><div class="line">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">    ...</div><div class="line">    methods: &#123;</div><div class="line">      ...</div><div class="line">      addItem () &#123;</div><div class="line">        <span class="keyword">let</span> itemText  = <span class="built_in">window</span>.prompt(<span class="string">'请输入要添加的事项：'</span>)</div><div class="line">        <span class="keyword">if</span> (itemText) &#123;</div><div class="line">          <span class="keyword">let</span> list = <span class="keyword">this</span>.todoList.slice();</div><div class="line">          list.push(&#123;</div><div class="line">            <span class="attr">text</span>: itemText,</div><div class="line">            <span class="attr">done</span>: <span class="literal">false</span>,</div><div class="line">            <span class="attr">checked</span>: <span class="literal">false</span></div><div class="line">          &#125;)</div><div class="line">          <span class="keyword">this</span>.setTodoList(list)</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      ...</div><div class="line">      ...mapMutations(&#123;</div><div class="line">        <span class="attr">setTodoList</span>: <span class="string">'SET_TODO_LIST'</span></div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>接下来就去 todo 里面添加一个条目。如图，添加了一个 coding 事项：<br><img src="/images/vuex-base/mutation-interface.PNG" alt="添加事项"></p>
+<p>可在 vue 的 devtool 观察到如下结果：<br><img src="/images/vuex-base/mutations-vue-devtool.PNG" alt=""></p>
+<p>可以看到 mutation 的 payload 以及 type 信息。<br>再来观察 Vuex 的 createLogger 插件在控制台输出的信息：<br><img src="/images/vuex-base/mutations-console.PNG" alt=""><br>可以看到，这里进行了一次  <code>SET_TODO_LIST</code> 的 mutation 操作。从 <code>prev state</code>可以知道 ，操作前， <code>todoList</code> 只有三个条目。进行 <code>SET_TODO_LIST</code> 操作时，传入的荷载为四个条目的 todoList。操作后，观察 <code>next state</code> 可知，操作后的 <code>todoList</code> 已经有四个事项。<br>在线上的 <a href="https://zhongyangxun.github.io/vuex-demo/dist/" target="_blank" rel="external">Demo</a><br> 中可打开控制台，添加或者删除条目，观察 Vuex 的状态变化。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这里用一个 todo 的例子，简单介绍了 Vuex 基本的  getters 和 mutatiosn 操作，更多的细节，可参考<a href="https://vuex.vuejs.org/zh/" target="_blank" rel="external">官方文档</a><br>。<br>Vuex 的应用场景是，当 n 多个组件之间的相互通信让人眼花缭乱，那么借助 Vuex 保存多个组件共享的状态，只需操作 state，就能在组件之间同步状态。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2019/07/20/Vuex基本使用/" class="archive-article-date">
+  	<time datetime="2019-07-20T05:40:05.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-07-20</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vuex/">Vuex</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/20/JavaScript事件代理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JavaScript 事件代理</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 钟阳勋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vue-js/" style="font-size: 10px;">vue.js</a> <a href="/tags/函数防抖/" style="font-size: 10px;">函数防抖</a> <a href="/tags/样式/" style="font-size: 10px;">样式</a> <a href="/tags/相对路径/" style="font-size: 10px;">相对路径</a> <a href="/tags/绝对路径/" style="font-size: 10px;">绝对路径</a> <a href="/tags/节流/" style="font-size: 10px;">节流</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接1</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接2</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接3</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接4</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接5</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接6</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

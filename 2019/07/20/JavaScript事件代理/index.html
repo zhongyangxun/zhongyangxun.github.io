@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>JavaScript 事件代理 | zhongyangxun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="“代理”可以理解为代劳或者帮忙，或者类似你的事就是我的事这种乐于助人的良好品质。JavaScript 也有许多事件要处理，接着就演示下，如何在 DOM 元素中选出一位热心肠的好同学。  
+场景想象一个平平无奇的表格，像下面这样：
+
+需求是点击删除按钮可删除单条数据。
+用 JavaScript 实现点击删除的操作，需要监听按钮点击事件，在事件点击回调中，发送删除数据的请求，请求成功后重新渲染表格。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 事件代理">
+<meta property="og:url" content="http://yoursite.com/2019/07/20/JavaScript事件代理/index.html">
+<meta property="og:site_name" content="zhongyangxun">
+<meta property="og:description" content="“代理”可以理解为代劳或者帮忙，或者类似你的事就是我的事这种乐于助人的良好品质。JavaScript 也有许多事件要处理，接着就演示下，如何在 DOM 元素中选出一位热心肠的好同学。  
+场景想象一个平平无奇的表格，像下面这样：
+
+需求是点击删除按钮可删除单条数据。
+用 JavaScript 实现点击删除的操作，需要监听按钮点击事件，在事件点击回调中，发送删除数据的请求，请求成功后重新渲染表格。">
+<meta property="og:image" content="http://yoursite.com/images/javascript-event-proxy/table.PNG">
+<meta property="og:image" content="http://yoursite.com/images/javascript-event-proxy/event-flow.png">
+<meta property="og:image" content="http://yoursite.com/images/javascript-event-proxy\box.PNG">
+<meta property="og:image" content="http://yoursite.com/images/javascript-event-proxy\bubble.gif">
+<meta property="og:image" content="http://yoursite.com/images/javascript-event-proxy\capture.gif">
+<meta property="og:updated_time" content="2019-07-20T05:39:17.253Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 事件代理">
+<meta name="twitter:description" content="“代理”可以理解为代劳或者帮忙，或者类似你的事就是我的事这种乐于助人的良好品质。JavaScript 也有许多事件要处理，接着就演示下，如何在 DOM 元素中选出一位热心肠的好同学。  
+场景想象一个平平无奇的表格，像下面这样：
+
+需求是点击删除按钮可删除单条数据。
+用 JavaScript 实现点击删除的操作，需要监听按钮点击事件，在事件点击回调中，发送删除数据的请求，请求成功后重新渲染表格。">
+<meta name="twitter:image" content="http://yoursite.com/images/javascript-event-proxy/table.PNG">
+  
+    <link rel="alternative" href="/atom.xml" title="zhongyangxun" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="./images/head.jpg" class="js-avatar show">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">钟阳勋</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/随笔">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/ZhongYangXun" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/5321847680/" title="weibo">weibo</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">钟阳勋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="./images/head.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">钟阳勋</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/ZhongYangXun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/5321847680/" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-JavaScript事件代理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript 事件代理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>“代理”可以理解为代劳或者帮忙，或者类似你的事就是我的事这种乐于助人的良好品质。JavaScript 也有许多事件要处理，接着就演示下，如何在 DOM 元素中选出一位热心肠的好同学。  </p>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>想象一个平平无奇的表格，像下面这样：</p>
+<p><img src="/images/javascript-event-proxy/table.PNG" alt=""></p>
+<p>需求是点击删除按钮可删除单条数据。</p>
+<p>用 JavaScript 实现点击删除的操作，需要监听按钮点击事件，在事件点击回调中，发送删除数据的请求，请求成功后重新渲染表格。</p>
+<h2 id="基本实现"><a href="#基本实现" class="headerlink" title="基本实现"></a>基本实现</h2><p>基本款的实现大概如下：</p>
+<p>HTML：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">td</span>&gt;</span>1<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">td</span>&gt;</span>汉堡<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-id</span>=<span class="string">"1"</span>&gt;</span>删除<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">...</div></pre></td></tr></table></figure>
+<p>JavaScript:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> deleteItem = <span class="function">(<span class="params">id</span>) =&gt;</span> &#123;</div><div class="line">  <span class="comment">// 依据 ID 删除数据。</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> btnList = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'btn'</span>)</div><div class="line"><span class="built_in">Array</span>.prototype.forEach.call(btnList, (btn) =&gt; &#123;</div><div class="line">  btn.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">    deleteItem(<span class="keyword">this</span>.dataset.id)</div><div class="line">  &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>上面的代码给每一条删除按钮都添加了点击事件的回调。上面的代码利用自定义属性 <code>data-id</code> 将单条数据的 <code>ID</code> 传给数据的删除按钮，然后在点击事件的回调中通过 <code>dataset</code> 属性取得，将其传递给处理删除的函数。</p>
+<p>这样可以实现上面的上面所说的删除功能。</p>
+<h3 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a>副作用</h3><p>可是这么写，当数据一多，将会对页面性能造成影响。</p>
+<p>参考《JavaScript 高级程序设计》：</p>
+<blockquote>
+<p>首先，每个函数都是对象，都会占用内存；内存中的对象越多，性能就越差。其次，必须事先指定所有事件处理程序而导致的 DOM 访问次数，会延迟整个页面的交互就绪时间。</p>
+</blockquote>
+<p>面对这种状况，解决方案是事件代理。</p>
+<h2 id="事件代理实现"><a href="#事件代理实现" class="headerlink" title="事件代理实现"></a>事件代理实现</h2><p>先看代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> table = <span class="built_in">document</span>.getElementById(<span class="string">'table'</span>)</div><div class="line">table.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (e.target.tagName === <span class="string">'BUTTON'</span>) &#123;</div><div class="line">    deleteItem(e.target.dataset.id)</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>上面的代码，首先在回调中通过事件对象 <code>e</code> 的 <code>target</code> 属性取得触发点击事件的元素，然后通过 <code>tagName</code> 判断这个元素是不是按钮，如果是的话，就进行删除操作。</p>
+<p>只添加了一次事件处理函数，就实现了功能。</p>
+<p>这里利用的是事件流的事件冒泡。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="事件流"><a href="#事件流" class="headerlink" title="事件流"></a>事件流</h3><p>事件流有三个阶段，分别是事件捕获阶段，处于目标阶段，还有事件冒泡阶段。</p>
+<p>按钮点击事件的事件流如下：</p>
+<p><img src="/images/javascript-event-proxy/event-flow.png" alt=""></p>
+<p>上图省略了 <code>tr</code> ,<code>td</code>, <code>tbody</code>    这些元素，只用关键的元素来展示事件流。</p>
+<p>“事件捕获”是不太精确的目标先接收到事件，首先是文档，然后再到 <code>body</code>，逐渐精确到最具体的节点 <code>button</code>.</p>
+<p>当 <code>button</code> 接收到事件，即为“处于目标阶段”。</p>
+<p>之后，事件再向外层逐级传播到不太具体的节点，这便是“事件冒泡阶段”。</p>
+<h3 id="冒泡与捕获演示"><a href="#冒泡与捕获演示" class="headerlink" title="冒泡与捕获演示"></a>冒泡与捕获演示</h3><p>假如有个外层元素称为 <code>box</code>， 它里面包含了一个按钮 <code>btn</code>：</p>
+<p><img src="/images/javascript-event-proxy\box.PNG" alt=""></p>
+<p>给 <code>box</code> 和 <code>btn</code> 注册点击事件，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">box.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'box'</span>)</div><div class="line">&#125;)</div><div class="line">btn.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'button'</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>点击 <code>btn</code>：</p>
+<p><img src="/images/javascript-event-proxy\bubble.gif" alt=""></p>
+<p>可以看到，首先打印的是 <code>&#39;button&#39;</code>，接着才是 <code>box</code>. 因为 <code>addEventListener</code> 默认是在冒泡阶段执行回调函数的。这里，最具体的 <code>btn</code> 接受到事件之后，向外层冒泡，<code>box</code> 才能接受到事件。</p>
+<p>改一下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">box.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'box'</span>)</div><div class="line">&#125;, <span class="literal">true</span>)</div><div class="line">btn.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'button'</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>这里给 <code>box</code> 的 <code>addEventListener</code> 传入了第三个参数 <code>true</code>, 表示要在捕获阶段处理 <code>box</code> 的点击事件。 </p>
+<p><code>addEventListener</code>  第三个参数形参为 <code>useCapture</code>,  表示是否在捕获阶段处理事件，默认为 <code>false</code>.</p>
+<p>运行一下：</p>
+<p><img src="/images/javascript-event-proxy\capture.gif" alt=""></p>
+<p>这样一改，首先打印的就是 <code>&#39;box&#39;</code>, 因为事件具体节点是 <code>btn</code>，而事件要从不太具体的节点，经过捕获阶段，才确定到 <code>btn</code>.  在捕获阶段，外层  <code>box</code> 要比 <code>btn</code> 早接受到事件，所以先执行了 <code>box</code>  捕获阶段的事件处理函数。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>事件代理的代码中，注册点击事件的是 <code>table</code> 元素，发生点击事件最具体的节点是 <code>button</code>. 事件在 <code>button</code> 发生后，由于冒泡，会传播到 <code>table</code>， 从而触发 <code>table</code> 上事先注册的回调函数。所以，用事件冒泡实现事件代理，可以只给热心肠同学 <code>table</code> 添加点击事件回调，而不必劳烦表格中的每个 <code>button</code> .</p>
+<p>在类似的场景下，可利用事件代理，来减少冗余，节约资源。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2019/07/20/JavaScript事件代理/" class="archive-article-date">
+  	<time datetime="2019-07-20T05:35:25.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-07-20</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/07/20/Vuex基本使用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Vuex 基本使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/20/你好，我是JavaScript的this/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">你好，我是 JavaScript 的this</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 钟阳勋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vue-js/" style="font-size: 10px;">vue.js</a> <a href="/tags/函数防抖/" style="font-size: 10px;">函数防抖</a> <a href="/tags/样式/" style="font-size: 10px;">样式</a> <a href="/tags/相对路径/" style="font-size: 10px;">相对路径</a> <a href="/tags/绝对路径/" style="font-size: 10px;">绝对路径</a> <a href="/tags/节流/" style="font-size: 10px;">节流</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接1</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接2</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接3</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接4</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接5</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接6</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
