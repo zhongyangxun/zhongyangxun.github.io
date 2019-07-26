@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>JavaScript:简单粗暴浅拷贝,钻牛角尖深拷贝 | zhongyangxun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="深拷贝和浅拷贝都和对象的复制有关，它们是对象复制的两种不同方式。接下来就来看一下，浅拷贝是怎么个浅法，还有深拷贝深在哪里。
+简单粗暴浅拷贝来个栗子先复制一个对象看看：
+12345678910111213141516171819202122let a = &amp;#123;  name: &apos;a&apos;,  age: 99,  car: &amp;#123;    color: &apos;blue&apos;  &amp;#125;&amp;#125;l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript:简单粗暴浅拷贝,钻牛角尖深拷贝">
+<meta property="og:url" content="http://yoursite.com/2019/07/26/JavaScript-简单粗暴浅拷贝-钻牛角尖深拷贝/index.html">
+<meta property="og:site_name" content="zhongyangxun">
+<meta property="og:description" content="深拷贝和浅拷贝都和对象的复制有关，它们是对象复制的两种不同方式。接下来就来看一下，浅拷贝是怎么个浅法，还有深拷贝深在哪里。
+简单粗暴浅拷贝来个栗子先复制一个对象看看：
+12345678910111213141516171819202122let a = &amp;#123;  name: &apos;a&apos;,  age: 99,  car: &amp;#123;    color: &apos;blue&apos;  &amp;#125;&amp;#125;l">
+<meta property="og:updated_time" content="2019-07-26T13:51:22.381Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript:简单粗暴浅拷贝,钻牛角尖深拷贝">
+<meta name="twitter:description" content="深拷贝和浅拷贝都和对象的复制有关，它们是对象复制的两种不同方式。接下来就来看一下，浅拷贝是怎么个浅法，还有深拷贝深在哪里。
+简单粗暴浅拷贝来个栗子先复制一个对象看看：
+12345678910111213141516171819202122let a = &amp;#123;  name: &apos;a&apos;,  age: 99,  car: &amp;#123;    color: &apos;blue&apos;  &amp;#125;&amp;#125;l">
+  
+    <link rel="alternative" href="/atom.xml" title="zhongyangxun" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="./images/head.jpg" class="js-avatar show">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">菲利普马洛</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/随笔">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/ZhongYangXun" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/5321847680/" title="weibo">weibo</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">菲利普马洛</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="./images/head.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">菲利普马洛</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/ZhongYangXun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/5321847680/" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-JavaScript-简单粗暴浅拷贝-钻牛角尖深拷贝" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript:简单粗暴浅拷贝,钻牛角尖深拷贝
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>深拷贝和浅拷贝都和对象的复制有关，它们是对象复制的两种不同方式。接下来就来看一下，浅拷贝是怎么个浅法，还有深拷贝深在哪里。</p>
+<h2 id="简单粗暴浅拷贝"><a href="#简单粗暴浅拷贝" class="headerlink" title="简单粗暴浅拷贝"></a>简单粗暴浅拷贝</h2><h3 id="来个栗子"><a href="#来个栗子" class="headerlink" title="来个栗子"></a>来个栗子</h3><p>先复制一个对象看看：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> a = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'a'</span>,</div><div class="line">  <span class="attr">age</span>: <span class="number">99</span>,</div><div class="line">  <span class="attr">car</span>: &#123;</div><div class="line">    <span class="attr">color</span>: <span class="string">'blue'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> b = &#123;&#125;</div><div class="line"></div><div class="line"><span class="built_in">Object</span>.keys(a).forEach(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</div><div class="line">  b[key] = a[key]</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(b)</div><div class="line"><span class="comment">// &#123;</span></div><div class="line"><span class="comment">//   name: 'a',</span></div><div class="line"><span class="comment">//   age: 99,</span></div><div class="line"><span class="comment">//   car: &#123;</span></div><div class="line"><span class="comment">//     color: 'blue'</span></div><div class="line"><span class="comment">//   &#125;</span></div><div class="line"><span class="comment">// &#125;</span></div></pre></td></tr></table></figure>
+<p>首先声明了一个对象 <code>a</code> 还有一个空对象 <code>b</code>. 然后遍历对象 <code>a</code> 的可枚举属性，将属性和属性值一一分配给 <code>b</code>. 这里，实现了对象的复制。</p>
+<p>接下来，对 <code>b</code> 进行一些操作：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">b.name = <span class="string">'b'</span></div><div class="line">b.car.color = <span class="string">'red'</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(b)</div><div class="line"><span class="comment">// &#123;</span></div><div class="line"><span class="comment">//   name: 'b',</span></div><div class="line"><span class="comment">//   age: 99,</span></div><div class="line"><span class="comment">//   car: &#123;</span></div><div class="line"><span class="comment">//     color: 'red'</span></div><div class="line"><span class="comment">//   &#125;</span></div><div class="line"><span class="comment">// &#125;</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(a)</div><div class="line"><span class="comment">// &#123;</span></div><div class="line"><span class="comment">//   name: 'a',</span></div><div class="line"><span class="comment">//   age: 99,</span></div><div class="line"><span class="comment">//   car: &#123;</span></div><div class="line"><span class="comment">//     color: 'red'</span></div><div class="line"><span class="comment">//   &#125;</span></div><div class="line"><span class="comment">// &#125;</span></div></pre></td></tr></table></figure>
+<p>上面的代码，将 <code>b</code> 的 <code>name</code> 属性值变成 <code>&#39;b&#39;</code>, 然后再将 <code>b</code> 的 <code>car</code> 属性的 <code>color</code> 变为 <code>&#39;red&#39;</code>.</p>
+<p>打印 <code>b</code>，发现这些改动都预期发生了。</p>
+<p>打印 <code>a</code>, 出现了一些意料之外的事情。<code>a</code> 的 <code>name</code> 仍然是 <code>&#39;a&#39;</code> ，然而 <code>a</code> 的 <code>car</code> 属性的 <code>color</code> 属性却发生了变化，变得和刚刚赋给 <code>b</code> 的一样了，成了 <code>&#39;red&#39;</code>.</p>
+<p>这是怎么回事呢？</p>
+<h3 id="剧情解析"><a href="#剧情解析" class="headerlink" title="剧情解析"></a>剧情解析</h3><p>时光稍微倒流一下，回到复制对象的地方看一看。复制的关键代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Object</span>.keys(a).forEach(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</div><div class="line">  b[key] = a[key]</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>代码把 <code>a</code> 的可枚举属性悉数分配给 <code>b</code>.</p>
+<p>分配 <code>car</code> 属性的时候，慢动作细节即为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">b[<span class="string">'car'</span>] = a[<span class="string">'car'</span>]</div></pre></td></tr></table></figure>
+<p><code>a[&#39;car&#39;]</code> 的值是一个对象，准确地说，<code>a[&#39;car&#39;]</code> 的值是一个指针，指向了对象 <code>{color: &#39;blue&#39;}</code> 。</p>
+<p>在 JavaScript 当中，把对象赋给一个值，实际上是把对象的内存地址赋给这个值，然后，这个值就指向了该对象。对象是引用类型，不同于基本类型，引用类型存放在堆中。</p>
+<p>当把 <code>a[&#39;car&#39;]</code> 的值赋给 <code>b[&#39;car&#39;]</code> 之时，其实是把这个指针复制了一份，然后赋给 <code>b[&#39;car&#39;]</code>，最终， <code>b[&#39;car&#39;]</code> 也指向了同一个对象。</p>
+<p>后来执行 <code>b.car.color</code> 对 <code>b.car</code> 指向的对象进行操作，<code>a.car</code> 也产生了变化，因为它们指向的就是同一个对象。</p>
+<p>上面这个例子，就属于浅拷贝。</p>
+<h3 id="归纳一下"><a href="#归纳一下" class="headerlink" title="归纳一下"></a>归纳一下</h3><p><strong>浅拷贝，简单粗暴，只管复制，不考虑属性值是不是指向对象</strong>。</p>
+<p>可能上面这个归纳，在这个时候，还是有点模糊，感觉不甚清晰，接下来，来个深拷贝对比一下。</p>
+<h2 id="钻牛角尖深拷贝"><a href="#钻牛角尖深拷贝" class="headerlink" title="钻牛角尖深拷贝"></a>钻牛角尖深拷贝</h2><h3 id="来个栗子-1"><a href="#来个栗子-1" class="headerlink" title="来个栗子"></a>来个栗子</h3><p>先上代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span> (<span class="params">target, source</span>) </span>&#123;</div><div class="line">  <span class="built_in">Object</span>.keys(source).forEach(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">if</span> (getType(source[key]) === <span class="string">'Object'</span>) &#123;</div><div class="line">      target[key] = &#123;&#125;</div><div class="line">      deepCopy(target[key], source[key])</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (getType(source[key]) === <span class="string">'Array'</span>) &#123;</div><div class="line">      target[key] = []</div><div class="line">      deepCopy(target[key], source[key])</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      target[key] = source[key]</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line">  <span class="keyword">return</span> target</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// Get type of parameter val.</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getType</span>(<span class="params">val</span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> reg = <span class="regexp">/^\[object\s(\w*)\]$/</span></div><div class="line">  <span class="keyword">return</span> reg.exec(<span class="built_in">Object</span>.prototype.toString.call(val))[<span class="number">1</span>]</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> a = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'a'</span>,</div><div class="line">  <span class="attr">age</span>: <span class="number">99</span>,</div><div class="line">  <span class="attr">car</span>: &#123;</div><div class="line">    <span class="attr">color</span>: <span class="string">'blue'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> b = &#123;&#125;</div><div class="line"></div><div class="line">deepCopy(b, a)</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(b)</div><div class="line"><span class="comment">// &#123;</span></div><div class="line"><span class="comment">//   name: 'a',</span></div><div class="line"><span class="comment">//   age: 99,</span></div><div class="line"><span class="comment">//   car: &#123;</span></div><div class="line"><span class="comment">//     color: 'blue'</span></div><div class="line"><span class="comment">//   &#125;</span></div><div class="line"><span class="comment">// &#125;</span></div></pre></td></tr></table></figure>
+<p>上面的代码实现了一个深拷贝函数 <code>deepCopy</code>. 这个函数接受两个参数，<code>target</code> 是目标对象，<code>source</code> 是源对象，函数内将源对象的属性悉数拷贝到目标对象。</p>
+<p>函数中首先遍历源对象的属性，分三种情况来处理，分别是当属性值指向对象，指向数组，或者是其他情况。</p>
+<p>第一种情况，当 <code>source[key]</code> 指向对象时，先赋一个空对象给 <code>target[key]</code>，然后再以 <code>target[key]</code> 这个空对象为 <code>target</code>  参数，以 <code>source[key]</code> 为 <code>source</code> 参数，递归调用 <code>deepCopy</code>.</p>
+<p>第二种情况，当 <code>source[key]</code>指向数组，就赋一个空数组给 <code>target[key]</code>，接下来以 <code>target[key]</code> 作为 <code>target</code> 参数，以 <code>source[key]</code>  为 <code>source</code> 参数，递归调用 <code>deepCopy</code>.</p>
+<p>第三种情况，当 <code>source[key]</code> 不是对象也不是数组，那么直接把 <code>source[key]</code> 的值赋给 <code>target[key]</code>.</p>
+<p>遍历结束，<code>deepCopy</code> 返回 <code>target</code>.</p>
+<p>接着，声明了函数 <code>getType</code>, 就是 <code>deepCopy</code> 里面用到的判断数据类型的函数。<code>getType</code> 接受一个参数 <code>val</code>, 并返回 <code>val</code> 的类型。函数内利用 <code>Object.prototype.toString</code> 得到 <code>val</code> 的类型，但这样得到的是类似 <code>&#39;[object String]&#39;</code>以及 <code>&#39;[object Array]&#39;</code> 这样的字符串，还需要加工一下，才能拿到代表类型的字符串，所以声明了一个正则表达式，来进行从 <code>&#39;[object String]&#39;</code> 提取出 <code>&#39;String&#39;</code> 这样的工作。</p>
+<p>然后，声明对象 <code>a</code>, 接着，声明空对象 <code>b</code>, 再执行 <code>deepCopy(b, a)</code> 将 <code>a</code> 深拷贝到 <code>b</code>.</p>
+<p><code>console.log(b)</code> 可知 <code>b</code> 已经成功拿到 <code>a</code> 的可枚举属性。</p>
+<p>接下来，对 <code>b</code> 进行一些操作：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">b.name = <span class="string">'b'</span></div><div class="line">b.car.color = <span class="string">'red'</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(b)</div><div class="line"><span class="comment">// &#123;</span></div><div class="line"><span class="comment">//   name: 'b',</span></div><div class="line"><span class="comment">//   age: 99,</span></div><div class="line"><span class="comment">//   car: &#123;</span></div><div class="line"><span class="comment">//     color: 'red'</span></div><div class="line"><span class="comment">//   &#125;</span></div><div class="line"><span class="comment">// &#125;</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(a)</div><div class="line"><span class="comment">// &#123;</span></div><div class="line"><span class="comment">//   name: 'a',</span></div><div class="line"><span class="comment">//   age: 99,</span></div><div class="line"><span class="comment">//   car: &#123;</span></div><div class="line"><span class="comment">//     color: 'blue'</span></div><div class="line"><span class="comment">//   &#125;</span></div><div class="line"><span class="comment">// &#125;</span></div></pre></td></tr></table></figure>
+<p>像第一个例子一样，将 <code>b</code> 的 <code>name</code> 属性赋值为 <code>&#39;b&#39;</code>, <code>b</code> 的 <code>car</code> 属性的 <code>color</code> 赋值为 <code>&#39;red&#39;</code>.</p>
+<p>打印 <code>b</code>, 发现改变已经生效。</p>
+<p>打印 <code>a</code>, 可见 <code>a</code> 没有像上一个例子那样发生改变。</p>
+<h3 id="剧情解析-1"><a href="#剧情解析-1" class="headerlink" title="剧情解析"></a>剧情解析</h3><p>在这个例子中，当遍历到 <code>a[car]</code> 属性的时候，发现属性值指向的是一个对象，就将一个空对象赋给 <code>b[car]</code>, 再把 <code>a[car]</code> 所指向的对象当做 <code>source</code>, <code>b[car]</code> 指向的空对象当做 <code>target</code>, 执行 <code>deepCopy</code> 操作，将 <code>a[car]</code> 所指的对象属性拷贝给 <code>b[car]</code> 所指的空对象。这个时候， <code>a[car]</code> 和 <code>b[car]</code> 所指的并非同一个对象，所以，任凭怎么操作 <code>b[car]</code>, <code>a[car]</code> 都不会受到丝毫影响。</p>
+<h3 id="归纳一下-1"><a href="#归纳一下-1" class="headerlink" title="归纳一下"></a>归纳一下</h3><p>这就是深拷贝，深拷贝在遍历源对象属性的时候，<strong>遇到可遍历的，如对象和数组，会再深入遍历其属性，并进行拷贝</strong>。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从上面的例子可以知道，深拷贝和浅拷贝，区别在于，在遍历源对象的时候，遇到可遍历的属性值，会不会去进行遍历。浅拷贝是直接将属性值复制过去，而深拷贝则会继续深入遍历并拷贝。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2019/07/26/JavaScript-简单粗暴浅拷贝-钻牛角尖深拷贝/" class="archive-article-date">
+  	<time datetime="2019-07-26T13:49:53.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-07-26</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/17/JavaScript事件代理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JavaScript 事件代理</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 菲利普马洛
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vue-js/" style="font-size: 10px;">vue.js</a> <a href="/tags/函数防抖/" style="font-size: 10px;">函数防抖</a> <a href="/tags/样式/" style="font-size: 10px;">样式</a> <a href="/tags/相对路径/" style="font-size: 10px;">相对路径</a> <a href="/tags/绝对路径/" style="font-size: 10px;">绝对路径</a> <a href="/tags/节流/" style="font-size: 10px;">节流</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接1</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接2</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接3</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接4</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接5</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接6</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

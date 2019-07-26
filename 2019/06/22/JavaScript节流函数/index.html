@@ -6,24 +6,39 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>相对路径与绝对路径 | zhongyangxun</title>
+  <title>JavaScript 节流函数 | zhongyangxun</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="对于相对路径和绝对路径的了解一直以来都不甚清晰，只知道从根目录开始的是绝对路径，相对于当前文件的是相对路径。
-之前写代码所用的URL是相对路径，类似于这种：1background-image:url(img/beatles.jpg)
-12&amp;lt;script src=&quot;js/jquery.min.js&quot; &amp;gt;&amp;lt;script&amp;gt;&amp;lt;img src=&quot;img/blur.jpg&quot; &amp;g">
+  <meta name="description" content="简介“节流”，字典上这么解释：
+
+[throttle]∶节制流入或流出,尤指用节流阀调节。
+
+那节流函数 (throttle) 就是 “节制流入或流出的函数”，越来越绕了，这是什么鬼？刚开始接触这种名词，反正我是有点摸不着头脑，略抽象，不好理解。
+那放下这术语不管，先看看为什么要用它。
+场景页面事件中，scroll, resize 和 mousemove 事件都有一个共同点，就是会频繁地被触发。举">
 <meta property="og:type" content="article">
-<meta property="og:title" content="相对路径与绝对路径">
-<meta property="og:url" content="http://yoursite.com/2017/08/21/相对路径与绝对路径/index.html">
+<meta property="og:title" content="JavaScript 节流函数">
+<meta property="og:url" content="http://yoursite.com/2019/06/22/JavaScript节流函数/index.html">
 <meta property="og:site_name" content="zhongyangxun">
-<meta property="og:description" content="对于相对路径和绝对路径的了解一直以来都不甚清晰，只知道从根目录开始的是绝对路径，相对于当前文件的是相对路径。
-之前写代码所用的URL是相对路径，类似于这种：1background-image:url(img/beatles.jpg)
-12&amp;lt;script src=&quot;js/jquery.min.js&quot; &amp;gt;&amp;lt;script&amp;gt;&amp;lt;img src=&quot;img/blur.jpg&quot; &amp;g">
-<meta property="og:updated_time" content="2017-08-21T15:42:02.318Z">
+<meta property="og:description" content="简介“节流”，字典上这么解释：
+
+[throttle]∶节制流入或流出,尤指用节流阀调节。
+
+那节流函数 (throttle) 就是 “节制流入或流出的函数”，越来越绕了，这是什么鬼？刚开始接触这种名词，反正我是有点摸不着头脑，略抽象，不好理解。
+那放下这术语不管，先看看为什么要用它。
+场景页面事件中，scroll, resize 和 mousemove 事件都有一个共同点，就是会频繁地被触发。举">
+<meta property="og:image" content="http://yoursite.com/images/javascript-function-throttle/before_throttle.gif">
+<meta property="og:image" content="http://yoursite.com/images/javascript-function-throttle/after_throttle.gif">
+<meta property="og:updated_time" content="2019-07-20T06:14:52.151Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="相对路径与绝对路径">
-<meta name="twitter:description" content="对于相对路径和绝对路径的了解一直以来都不甚清晰，只知道从根目录开始的是绝对路径，相对于当前文件的是相对路径。
-之前写代码所用的URL是相对路径，类似于这种：1background-image:url(img/beatles.jpg)
-12&amp;lt;script src=&quot;js/jquery.min.js&quot; &amp;gt;&amp;lt;script&amp;gt;&amp;lt;img src=&quot;img/blur.jpg&quot; &amp;g">
+<meta name="twitter:title" content="JavaScript 节流函数">
+<meta name="twitter:description" content="简介“节流”，字典上这么解释：
+
+[throttle]∶节制流入或流出,尤指用节流阀调节。
+
+那节流函数 (throttle) 就是 “节制流入或流出的函数”，越来越绕了，这是什么鬼？刚开始接触这种名词，反正我是有点摸不着头脑，略抽象，不好理解。
+那放下这术语不管，先看看为什么要用它。
+场景页面事件中，scroll, resize 和 mousemove 事件都有一个共同点，就是会频繁地被触发。举">
+<meta name="twitter:image" content="http://yoursite.com/images/javascript-function-throttle/before_throttle.gif">
   
     <link rel="alternative" href="/atom.xml" title="zhongyangxun" type="application/atom+xml">
   
@@ -139,7 +154,7 @@
 </nav>
 
       <div class="body-wrap">
-        <article id="post-相对路径与绝对路径" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-JavaScript节流函数" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -149,7 +164,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      相对路径与绝对路径
+      JavaScript 节流函数
     </h1>
   
 
@@ -157,66 +172,50 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>对于相对路径和绝对路径的了解一直以来都不甚清晰，只知道从根目录开始的是绝对路径，相对于当前文件的是相对路径。</p>
-<p>之前写代码所用的URL是相对路径，类似于这种：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">background-image:url(img/beatles.jpg)</div></pre></td></tr></table></figure></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/jquery.min.js"</span> &gt;</span><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="xml"></span></span></div><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/blur.jpg"</span> &gt;</span></div></pre></td></tr></table></figure>
-<p>直到开始学习Vue.js，在代码里出现的路径如 :</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span></div></pre></td></tr></table></figure>
-<p>就有点懵，<code>App</code>前面的那个<code>./</code>是什么鬼？<br>完全不知道是为什么要这么写，才想起来去Google。</p>
-<p>关于相对路径和绝对路径的规则，总结如下：</p>
-<ol>
-<li>绝对路径是从根目录一直到目的文件的完整路径</li>
-<li>相对路径是一部分的路径，其表示的位置取决于特定的前缀</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>前缀</th>
-<th>含义</th>
-<th>种类</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>.</code></td>
-<td>表示当前目录</td>
-<td>相对路径</td>
-</tr>
-<tr>
-<td>没有前缀</td>
-<td>当前目录</td>
-<td>相对路径</td>
-</tr>
-<tr>
-<td><code>..</code></td>
-<td>表示上一层目录</td>
-<td>相对路径</td>
-</tr>
-<tr>
-<td><code>/</code></td>
-<td>代表根目录</td>
-<td>绝对路径</td>
-</tr>
-<tr>
-<td><code>D:/</code></td>
-<td>当然是根目录</td>
-<td>绝对路径</td>
-</tr>
-</tbody>
-</table>
-<p><em>注：在D盘里上面的 <code>/</code>等同于 <code>D:/</code></em></p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>“节流”，字典上这么解释：</p>
+<blockquote>
+<p>[throttle]∶节制流入或流出,尤指用节流阀调节。</p>
+</blockquote>
+<p>那节流函数 (throttle) 就是 “节制流入或流出的函数”，越来越绕了，这是什么鬼？刚开始接触这种名词，反正我是有点摸不着头脑，略抽象，不好理解。</p>
+<p>那放下这术语不管，先看看为什么要用它。</p>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>页面事件中，scroll, resize 和 mousemove 事件都有一个共同点，就是会频繁地被触发。举个例子，那 scroll 来看好了。</p>
+<p>先写一段代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> num = <span class="number">1</span></div><div class="line"><span class="built_in">window</span>.onscroll = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(num++)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里监听了页面的 scroll 事件，当页面滚动时，打印出递增的数字。</p>
+<p>下图是运行结果，可以看到，console 里面疯狂输出：</p>
+<p><img src="/images/javascript-function-throttle/before_throttle.gif" alt=""></p>
+<p>回想一下最常用的 click  事件，是不是老老实实，点一次，执行一次。而 scroll 呢，滚动一小段，好几次就去了。这里还好，不涉及到 DOM 操作，要是在 scroll 事件中处理 DOM 元素，那页面性能肯定受到影响，笔记本风扇说不定随着滚动的页面呼呼作响，或者页面一卡一卡卡出心脏病。</p>
+<p>让它消停点的办法，就是让回调少执行几次。提到让疯狂执行的函数少执行几次，限制它的行为，“节流”这个概念是不是隐隐约约出现，不再那么抽象了？就好比把水龙头关小一点，让水慢慢流。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>怎么让这个函数慢慢流呢？</p>
+<p>设想一下，页面一直在滚动，根本停不下来。这个时候，回调也一直在触发，噼里啪啦。</p>
+<p>和它商量一下： “你能不能隔几秒执行一次?”</p>
+<p>“隔几秒？”</p>
+<p>“两百毫秒吧。”</p>
+<p>节流函数就是给这种高频率触发的函数，规定一个时间间隔，就是这一次执行和下一次执行的时间间隔。</p>
+<p>有点像游戏里面的技能冷却时间，放了技能，进入冷却时间，这期间，就算不停地点技能，也放不了，只能等冷却好，再放。</p>
+<p>千言万语不如上代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> throttle = <span class="function">(<span class="params">func, ms = <span class="number">200</span></span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">let</span> prev = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime()</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>) </span>&#123;</div><div class="line">    <span class="keyword">let</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime()</div><div class="line">    <span class="keyword">if</span> (now - prev &gt;= ms) &#123;</div><div class="line">      func()</div><div class="line">      prev = now</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里的 throttle 函数接受一个函数 <code>func</code> 和一个毫秒数 <code>ms</code> 作为参数，返回一个函数。当返回的函数不停地被触发，只有满足两次触发间隔大于或者等于规定的毫秒数，传入的 <code>func</code> 才执行。</p>
+<p>这个间隔是用时间戳来判断的。首先定义变量 <code>prev</code> 记录一个时间，在返回的函数中，取得它执行时的时间戳 <code>now</code>，比较两个时间戳，假如间隔大于规定的毫秒数 <code>ms</code>，就执行传入的 <code>func</code> 函数。</p>
+<p>拿上面的例子再举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> num = <span class="number">1</span></div><div class="line"><span class="built_in">window</span>.onscroll = throttle(<span class="function"><span class="params">()</span>=&gt;</span> &#123;<span class="built_in">console</span>.log(num++)&#125;, <span class="number">2000</span>)</div></pre></td></tr></table></figure>
+<p>这里监听页面滚动事件，每两秒触发一次回调函数。如下所示（没有慢放）：</p>
+<p><img src="/images/javascript-function-throttle/after_throttle.gif" alt=""></p>
+<p>当然，实际开发中，不会两秒一次这么夸张。这里只是为了更明显地观察到节流函数的作用。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>节流函数为高频率触发的回调设定一个执行周期，减少对页面性能的损耗。</p>
+<p>可用于 resize, scroll, mousemove 这些事件的回调函数。</p>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2017/08/21/相对路径与绝对路径/" class="archive-article-date">
-  	<time datetime="2017-08-21T15:35:31.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-08-21</time>
+      <a href="/2019/06/22/JavaScript节流函数/" class="archive-article-date">
+  	<time datetime="2019-06-22T05:20:03.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-06-22</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-js/">vue.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/相对路径/">相对路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/绝对路径/">绝对路径</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/节流/">节流</a></li></ul>
 	</div>
 
       
@@ -229,15 +228,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/03/09/Stylus基本使用/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/06/29/JavaScript 函数防抖了解一下/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Stylus基本使用
+          JavaScript 函数防抖了解一下
         
       </div>
     </a>
   
+  
+    <a href="/2019/06/17/Vuex基本使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Vuex 基本使用</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 

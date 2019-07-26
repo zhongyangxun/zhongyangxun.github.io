@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>JavaScript 函数防抖了解一下 | zhongyangxun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="说到防抖，想必多数人首先想到的是相机的防抖。因为我们并不是机器人，所以拿手机拍照的时候，手都会有不易察觉的抖动，这样的抖动会影响相片的质量。手机对这些情况做的一些补偿操作，减小了手抖对成像造成的影响。
+我们都知道，JavaScript 是一门编程语言，不是人类也不是机器人。那什么情况下，会产生“抖动”呢？
+场景联想一个平平无奇的搜索框，当用户输入的时候，需要实时给出搜索建议。
+第一反应肯定是监听输">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 函数防抖了解一下">
+<meta property="og:url" content="http://yoursite.com/2019/06/29/JavaScript 函数防抖了解一下/index.html">
+<meta property="og:site_name" content="zhongyangxun">
+<meta property="og:description" content="说到防抖，想必多数人首先想到的是相机的防抖。因为我们并不是机器人，所以拿手机拍照的时候，手都会有不易察觉的抖动，这样的抖动会影响相片的质量。手机对这些情况做的一些补偿操作，减小了手抖对成像造成的影响。
+我们都知道，JavaScript 是一门编程语言，不是人类也不是机器人。那什么情况下，会产生“抖动”呢？
+场景联想一个平平无奇的搜索框，当用户输入的时候，需要实时给出搜索建议。
+第一反应肯定是监听输">
+<meta property="og:image" content="http://yoursite.com/images/javascript-function-debounce/before_debounce.gif">
+<meta property="og:image" content="http://yoursite.com/images/javascript-function-debounce/after_debounce.gif">
+<meta property="og:updated_time" content="2019-07-20T06:14:17.813Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 函数防抖了解一下">
+<meta name="twitter:description" content="说到防抖，想必多数人首先想到的是相机的防抖。因为我们并不是机器人，所以拿手机拍照的时候，手都会有不易察觉的抖动，这样的抖动会影响相片的质量。手机对这些情况做的一些补偿操作，减小了手抖对成像造成的影响。
+我们都知道，JavaScript 是一门编程语言，不是人类也不是机器人。那什么情况下，会产生“抖动”呢？
+场景联想一个平平无奇的搜索框，当用户输入的时候，需要实时给出搜索建议。
+第一反应肯定是监听输">
+<meta name="twitter:image" content="http://yoursite.com/images/javascript-function-debounce/before_debounce.gif">
+  
+    <link rel="alternative" href="/atom.xml" title="zhongyangxun" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="./images/head.jpg" class="js-avatar show">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">菲利普马洛</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/随笔">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/ZhongYangXun" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/5321847680/" title="weibo">weibo</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">菲利普马洛</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="./images/head.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">菲利普马洛</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/ZhongYangXun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/5321847680/" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-JavaScript 函数防抖了解一下" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript 函数防抖了解一下
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>说到防抖，想必多数人首先想到的是相机的防抖。因为我们并不是机器人，所以拿手机拍照的时候，手都会有不易察觉的抖动，这样的抖动会影响相片的质量。手机对这些情况做的一些补偿操作，减小了手抖对成像造成的影响。</p>
+<p>我们都知道，JavaScript 是一门编程语言，不是人类也不是机器人。那什么情况下，会产生“抖动”呢？</p>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>联想一个平平无奇的搜索框，当用户输入的时候，需要实时给出搜索建议。</p>
+<p>第一反应肯定是监听输入框的 <code>input</code> 事件，随着内容的变化，发出请求，拉取建议的数据。</p>
+<p>如下面的例子（这里 <code>input</code> 被触发时，执行 <code>console.log(&#39;input&#39;)</code>, 并且用 <code>console.log(&#39;fetch&#39;)</code> 代指请求）：</p>
+<p><img src="images/javascript-function-debounce/before_debounce.gif" alt=""></p>
+<p>可以看到，每一个字符的增减，都会触发请求。</p>
+<p>这种情况，就属于“抖动”。</p>
+<p>服务器接收到这样的请求，肯定是一脸懵啊，这谁顶得住？</p>
+<p>这个时候，就需要像手机相机一样，做一些操作，减少抖动对网络请求的影响，减轻服务器的压力。</p>
+<h2 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h2><p>“抖动”情景下，连续输入，导致发送了多次一样的请求。函数防抖的处理方式是：先规定一个时间段，比如一秒，输入内容触发 <code>input</code> ，一秒之后再发送请求，假如一秒内又产生了新的输入，那么重新计时，点击过后一秒再发送请求。</p>
+<p>这样一来，规定时间段内的所有输入，只会产生一次请求。不管打字多快的手速，也战胜不了防抖的函数。</p>
+<h2 id="怎么写"><a href="#怎么写" class="headerlink" title="怎么写"></a>怎么写</h2><p>直接上代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> debounce = <span class="function">(<span class="params">func, delay = <span class="number">200</span></span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">let</span> timeout = <span class="literal">null</span></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    clearTimeout(timeout)</div><div class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">      func.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>)</div><div class="line">    &#125;, delay)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>debounce</code> 函数接受一个函数 <code>func</code> 和一个默认为 200 毫秒延迟时间 <code>delay</code> 作为参数。返回一个函数，触发返回的函数，开始计时，<code>delay</code> 毫秒后触发 <code>func</code>, 假如 <code>delay</code> 时间段内，再次触发这个函数，那么重新计时，<code>delay</code> 毫秒后触发 <code>func</code>.</p>
+<p><code>debounce</code> 首先声明变量 <code>timeout</code>, 用于存放之后 <code>setTimeout</code> 函数返回的定时器编号。</p>
+<p>然后返回一个函数，函数内执行 <code>clearTimeout</code> 来依据先前声明的 <code>timeout</code> 来清除定时器。当然，一开始，传入的 <code>timeout</code> 值为 <code>null</code>, 这时的清除操作忽略不计。</p>
+<p>接着，执行 <code>setTimeout</code>, 在至少 <code>delay</code> 规定的毫秒后，将 <code>setTimeout</code> 的回调函数添加到当前事件队列，回调内执行 <code>func</code> 函数。并且把返回的定时器编号赋值给 <code>timeout</code> , 这样，下一次触发  <code>debounce</code> 返回的函数时，就可以清除通过上面的 <code>clearTimeout(timeout)</code> 来清除定时器 。</p>
+<p>注意到上面执行 <code>func</code> 用的是 <code>func.apply(this, arguments)</code>, 这样一来，就可以对 <code>debounce</code> 返回的那个函数传递参数，<code>func</code> 执行的时候，再把参数传给 <code>func</code>.</p>
+<p>来用一下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> suggest = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'fetch'</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> debounceSuggest = debounce(suggest, <span class="number">500</span>)</div><div class="line"></div><div class="line"><span class="keyword">let</span> btnSearch = <span class="built_in">document</span>.getElementById(<span class="string">'search'</span>)</div><div class="line">btnSearch.addEventListener(<span class="string">'input'</span>, () =&gt; &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'input'</span>)</div><div class="line">  debounceSuggest()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>这里将 <code>suggest</code> 函数传入 <code>debounce</code> 函数，并设置延迟时间为 500 毫秒。 <code>debounce</code> 返回的函数赋给 <code>debounceSuggest</code> , 然后在提交按钮 <code>btnSearch</code> 的 <code>input</code> 事件回调中执行 <code>debounceSuggest</code>.</p>
+<p>看下效果：</p>
+<p><img src="images/javascript-function-debounce/after_debounce.gif" alt=""></p>
+<p> 上图中，一开始的几次连续输入，都不会触发 <code>suggest</code>，打印 <code>fetch</code> ，直到整个单词 <code>helllo</code> 输入完成，才触发了一次 <code>suggest</code>. 接着连续删除，也只触发了一次 <code>suggest</code>.</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>函数的防抖将一定时间内的多次操作，减少为一次，去除冗余，节约资源。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2019/06/29/JavaScript 函数防抖了解一下/" class="archive-article-date">
+  	<time datetime="2019-06-29T05:04:37.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-06-29</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/函数防抖/">函数防抖</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/07/07/你好，我是JavaScript的this/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          你好，我是 JavaScript 的this
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/06/22/JavaScript节流函数/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JavaScript 节流函数</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 菲利普马洛
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vue-js/" style="font-size: 10px;">vue.js</a> <a href="/tags/函数防抖/" style="font-size: 10px;">函数防抖</a> <a href="/tags/样式/" style="font-size: 10px;">样式</a> <a href="/tags/相对路径/" style="font-size: 10px;">相对路径</a> <a href="/tags/绝对路径/" style="font-size: 10px;">绝对路径</a> <a href="/tags/节流/" style="font-size: 10px;">节流</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接1</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接2</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接3</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接4</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接5</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接6</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

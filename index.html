@@ -38,7 +38,7 @@
 		</a>
 
 		<hgroup>
-		  <h1 class="header-author"><a href="/">钟阳勋</a></h1>
+		  <h1 class="header-author"><a href="/">菲利普马洛</a></h1>
 		</hgroup>
 
 		
@@ -93,7 +93,7 @@
       <nav id="mobile-nav">
   	<div class="overlay">
   		<div class="slider-trigger"><i class="icon-list"></i></div>
-  		<h1 class="header-author js-mobile-header hide">钟阳勋</h1>
+  		<h1 class="header-author js-mobile-header hide">菲利普马洛</h1>
   	</div>
 	<div class="intrude-less">
 		<header id="header" class="inner">
@@ -103,7 +103,7 @@
 				
 			</div>
 			<hgroup>
-			  <h1 class="header-author">钟阳勋</h1>
+			  <h1 class="header-author">菲利普马洛</h1>
 			</hgroup>
 			
 			<nav class="header-menu">
@@ -131,7 +131,7 @@
       <div class="body-wrap">
         
   
-    <article id="post-Vuex基本使用" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-JavaScript-简单粗暴浅拷贝-钻牛角尖深拷贝" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -141,7 +141,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/20/Vuex基本使用/">Vuex 基本使用</a>
+      <a class="article-title" href="/2019/07/26/JavaScript-简单粗暴浅拷贝-钻牛角尖深拷贝/">JavaScript:简单粗暴浅拷贝,钻牛角尖深拷贝</a>
     </h1>
   
 
@@ -149,53 +149,59 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><p>查看<a href="https://vuex.vuejs.org/zh/" target="_blank" rel="external">官方文档</a>可以知道：</p>
-<blockquote>
-<p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。</p>
-</blockquote>
-<p>怎么理解呢？就拿我两位数的资产的银行卡来说吧，基本的存钱取钱，就是状态管理。</p>
-<h2 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h2><p>我们将以一个简单的 Todo 作为例子，来讲解 Vuex 的基本使用。</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install vuex --save</div></pre></td></tr></table></figure>
-<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>首先需要在项目的 src 目录下，新建一个 Vuex 的目录 store，结构如下：<br><img src="/image/vuex-base/tree.PNG" alt=""></p>
-<p>初始化 Vuex：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// index.js</span></div><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line"><span class="keyword">import</span> state <span class="keyword">from</span> <span class="string">'./state.js'</span></div><div class="line"></div><div class="line">Vue.use(Vuex)</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store(&#123;</div><div class="line">  state</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>引入 Vuex 是理所当然的，除此之外执行 <code>Vue.use(Vuex)</code> 来全局安装 Vuex. <code>Vuex.Store</code> 即 Vuex 的构造函数，来初始化 Vuex 实例。这里可以看到，我们在 Vuex 构造函数中传入了一个 <code>state</code> 选项，那这个 state 是什么呢？</p>
-<h3 id="State"><a href="#State" class="headerlink" title="State"></a>State</h3><p>State 从字面意思理解，就是状态，在 Vuex 里面，什么代表了状态呢？数据。State 是 Vuex 这一状态管理工具的唯一的数据源，所有的数据都储存在里面。<br>State 的写法如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// state.js</span></div><div class="line"><span class="keyword">const</span> state = &#123;</div><div class="line">  <span class="attr">todoList</span>: <span class="built_in">JSON</span>.parse(localStorage.getItem(<span class="string">'todoList'</span>)) || []</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> state</div></pre></td></tr></table></figure>
-<p>这里声明了一个 state, 里面有一个 todoList 的字段，todoList 的数据是去 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage" target="_blank" rel="external">localStorage</a> 里面拿的，如果没有，就是一个空数组。<br>好了，现在我们的状态已经有了，接下来就是要在组件里面，获取这个 state, 也就是让我们的组件拿到这里的数据。</p>
-<h3 id="Getter"><a href="#Getter" class="headerlink" title="Getter"></a>Getter</h3><p>Getter, 顾名思义，就是一个“取”的操作，来拿 state 里面的数据。Getter 的写法如下:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// getters.js</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> todoList = <span class="function"><span class="params">state</span> =&gt;</span> state.todoList</div></pre></td></tr></table></figure>
-<p>这里声明并输出了一个 <code>todoList</code> 函数，函数的参数是 <code>state</code>, 返回值  <code>state.todoList</code>.<br>Getter 函数接受 state 作为它的第一个参数。这里我们就取到了上一节 state 里面的 todoList.<br>在需要 todoList 数据的组件当中，可以利用 <code>mapGetters</code> 将数据映射到计算属性。写法如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; mapGetters &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">export <span class="keyword">default</span> &#123;</div><div class="line">  ...</div><div class="line">  computed: &#123;</div><div class="line">    ...mapGetters([</div><div class="line">      <span class="string">'todoList'</span></div><div class="line">    ])</div><div class="line">  &#125;</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>调用的时候，和普通的计算属性别无二致:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"todo-list"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"(item, index) in todoList"</span> <span class="attr">:key</span>=<span class="string">"index"</span> <span class="attr">class</span>=<span class="string">"todo-item"</span> &gt;</span></div><div class="line">      ...</div><div class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>这样，<code>todoList</code> 就被渲染到了页面中：<br><img src="/image/vuex-base/getter-render.PNG" alt="todoList"></p>
-<p>当然，不管是标记一个事项为完成，还是添加删除事项，todoList 都会产生变化，也就是 state 会变化。那我们怎么去改变 state 呢？这就需要 mutation 的帮助 。</p>
-<h3 id="Mutation"><a href="#Mutation" class="headerlink" title="Mutation"></a>Mutation</h3><p>Mutation 是 Vuex 当中改变 state 唯一的方法。Mutation 使用与事件处理函数非常相似，都具有类型和回调函数。<br>这里把 mutation 比作事件，首先来规定“事件类型”：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// mutation-types.js</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> SET_TODO_LIST = <span class="string">'SET_TODO_LIST'</span></div></pre></td></tr></table></figure>
-<p>这里规定了一个 <code>SET_TODO_LIST</code> 的类型。<br>类型是不可变的，所以我们将其声明为常量。<br>然后再来写“事件”的“回调”：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// mutations.js</span></div><div class="line"><span class="keyword">import</span> * <span class="keyword">as</span> types <span class="keyword">from</span> <span class="string">'./mutation-types'</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> mutations = &#123;</div><div class="line">  [types.SET_TODO_LIST] (state, todoList) &#123;</div><div class="line">    state.todoList = todoList</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> mutations</div></pre></td></tr></table></figure>
-<p>可以看到， mutations 是一个对象，一个“事件类型”就对应可一个处理函数。处理函数接受 <code>state</code> 作为它的第一个参数，第二个参数是额外的，一般称之为“荷载 (payload) ”。<br>这里我们的荷载是一个 <code>todoList</code>，这个处理函数将 <code>state</code> 原来的 <code>todoList</code> 改为传入的荷载。<br>要使用 mutations，在 Vuex 的构造函数中，就要将 <code>mutations</code> 选项加进去：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line"><span class="keyword">import</span> state <span class="keyword">from</span> <span class="string">'./state.js'</span></div><div class="line"><span class="keyword">import</span> * <span class="keyword">as</span> getters <span class="keyword">from</span> <span class="string">'./getters'</span></div><div class="line"><span class="keyword">import</span> mutations <span class="keyword">from</span> <span class="string">'./mutations'</span></div><div class="line"><span class="keyword">import</span> createLogger <span class="keyword">from</span> <span class="string">'vuex/dist/logger'</span></div><div class="line"></div><div class="line">Vue.use(Vuex)</div><div class="line"></div><div class="line"><span class="keyword">const</span> debug = process.env.NODE_ENV !== <span class="string">'production'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store(&#123;</div><div class="line">  state,</div><div class="line">  getters,</div><div class="line">  mutations,</div><div class="line">  <span class="attr">plugins</span>: debug ? [createLogger()] : []</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>现在，构造函数中已经传入了 <code>mutations</code>，接下来，就是在组件中使用 mutations（这里的第四个选项 <code>plugins</code> 并不影响 mutation 的功能，用途是在控制台打印 Vuex 操作的信息）.</p>
-<p>TodoList 组件中，我们在“添加事项”这一动作提交 mutation, 改变 state.<br>组件内的代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// todo-list.vue</span></div><div class="line">  <span class="keyword">import</span> &#123; mapGetters, mapMutations &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line"></div><div class="line">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">    ...</div><div class="line">    methods: &#123;</div><div class="line">      ...</div><div class="line">      addItem () &#123;</div><div class="line">        <span class="keyword">let</span> itemText  = <span class="built_in">window</span>.prompt(<span class="string">'请输入要添加的事项：'</span>)</div><div class="line">        <span class="keyword">if</span> (itemText) &#123;</div><div class="line">          <span class="keyword">let</span> list = <span class="keyword">this</span>.todoList.slice();</div><div class="line">          list.push(&#123;</div><div class="line">            <span class="attr">text</span>: itemText,</div><div class="line">            <span class="attr">done</span>: <span class="literal">false</span>,</div><div class="line">            <span class="attr">checked</span>: <span class="literal">false</span></div><div class="line">          &#125;)</div><div class="line">          <span class="keyword">this</span>.setTodoList(list)</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      ...</div><div class="line">      ...mapMutations(&#123;</div><div class="line">        <span class="attr">setTodoList</span>: <span class="string">'SET_TODO_LIST'</span></div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>接下来就去 todo 里面添加一个条目。如图，添加了一个 coding 事项：<br><img src="/images/vuex-base/mutation-interface.PNG" alt="添加事项"></p>
-<p>可在 vue 的 devtool 观察到如下结果：<br><img src="/images/vuex-base/mutations-vue-devtool.PNG" alt=""></p>
-<p>可以看到 mutation 的 payload 以及 type 信息。<br>再来观察 Vuex 的 createLogger 插件在控制台输出的信息：<br><img src="/images/vuex-base/mutations-console.PNG" alt=""><br>可以看到，这里进行了一次  <code>SET_TODO_LIST</code> 的 mutation 操作。从 <code>prev state</code>可以知道 ，操作前， <code>todoList</code> 只有三个条目。进行 <code>SET_TODO_LIST</code> 操作时，传入的荷载为四个条目的 todoList。操作后，观察 <code>next state</code> 可知，操作后的 <code>todoList</code> 已经有四个事项。<br>在线上的 <a href="https://zhongyangxun.github.io/vuex-demo/dist/" target="_blank" rel="external">Demo</a><br> 中可打开控制台，添加或者删除条目，观察 Vuex 的状态变化。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这里用一个 todo 的例子，简单介绍了 Vuex 基本的  getters 和 mutatiosn 操作，更多的细节，可参考<a href="https://vuex.vuejs.org/zh/" target="_blank" rel="external">官方文档</a><br>。<br>Vuex 的应用场景是，当 n 多个组件之间的相互通信让人眼花缭乱，那么借助 Vuex 保存多个组件共享的状态，只需操作 state，就能在组件之间同步状态。</p>
+        <p>深拷贝和浅拷贝都和对象的复制有关，它们是对象复制的两种不同方式。接下来就来看一下，浅拷贝是怎么个浅法，还有深拷贝深在哪里。</p>
+<h2 id="简单粗暴浅拷贝"><a href="#简单粗暴浅拷贝" class="headerlink" title="简单粗暴浅拷贝"></a>简单粗暴浅拷贝</h2><h3 id="来个栗子"><a href="#来个栗子" class="headerlink" title="来个栗子"></a>来个栗子</h3><p>先复制一个对象看看：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> a = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'a'</span>,</div><div class="line">  <span class="attr">age</span>: <span class="number">99</span>,</div><div class="line">  <span class="attr">car</span>: &#123;</div><div class="line">    <span class="attr">color</span>: <span class="string">'blue'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> b = &#123;&#125;</div><div class="line"></div><div class="line"><span class="built_in">Object</span>.keys(a).forEach(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</div><div class="line">  b[key] = a[key]</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(b)</div><div class="line"><span class="comment">// &#123;</span></div><div class="line"><span class="comment">//   name: 'a',</span></div><div class="line"><span class="comment">//   age: 99,</span></div><div class="line"><span class="comment">//   car: &#123;</span></div><div class="line"><span class="comment">//     color: 'blue'</span></div><div class="line"><span class="comment">//   &#125;</span></div><div class="line"><span class="comment">// &#125;</span></div></pre></td></tr></table></figure>
+<p>首先声明了一个对象 <code>a</code> 还有一个空对象 <code>b</code>. 然后遍历对象 <code>a</code> 的可枚举属性，将属性和属性值一一分配给 <code>b</code>. 这里，实现了对象的复制。</p>
+<p>接下来，对 <code>b</code> 进行一些操作：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">b.name = <span class="string">'b'</span></div><div class="line">b.car.color = <span class="string">'red'</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(b)</div><div class="line"><span class="comment">// &#123;</span></div><div class="line"><span class="comment">//   name: 'b',</span></div><div class="line"><span class="comment">//   age: 99,</span></div><div class="line"><span class="comment">//   car: &#123;</span></div><div class="line"><span class="comment">//     color: 'red'</span></div><div class="line"><span class="comment">//   &#125;</span></div><div class="line"><span class="comment">// &#125;</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(a)</div><div class="line"><span class="comment">// &#123;</span></div><div class="line"><span class="comment">//   name: 'a',</span></div><div class="line"><span class="comment">//   age: 99,</span></div><div class="line"><span class="comment">//   car: &#123;</span></div><div class="line"><span class="comment">//     color: 'red'</span></div><div class="line"><span class="comment">//   &#125;</span></div><div class="line"><span class="comment">// &#125;</span></div></pre></td></tr></table></figure>
+<p>上面的代码，将 <code>b</code> 的 <code>name</code> 属性值变成 <code>&#39;b&#39;</code>, 然后再将 <code>b</code> 的 <code>car</code> 属性的 <code>color</code> 变为 <code>&#39;red&#39;</code>.</p>
+<p>打印 <code>b</code>，发现这些改动都预期发生了。</p>
+<p>打印 <code>a</code>, 出现了一些意料之外的事情。<code>a</code> 的 <code>name</code> 仍然是 <code>&#39;a&#39;</code> ，然而 <code>a</code> 的 <code>car</code> 属性的 <code>color</code> 属性却发生了变化，变得和刚刚赋给 <code>b</code> 的一样了，成了 <code>&#39;red&#39;</code>.</p>
+<p>这是怎么回事呢？</p>
+<h3 id="剧情解析"><a href="#剧情解析" class="headerlink" title="剧情解析"></a>剧情解析</h3><p>时光稍微倒流一下，回到复制对象的地方看一看。复制的关键代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Object</span>.keys(a).forEach(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</div><div class="line">  b[key] = a[key]</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>代码把 <code>a</code> 的可枚举属性悉数分配给 <code>b</code>.</p>
+<p>分配 <code>car</code> 属性的时候，慢动作细节即为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">b[<span class="string">'car'</span>] = a[<span class="string">'car'</span>]</div></pre></td></tr></table></figure>
+<p><code>a[&#39;car&#39;]</code> 的值是一个对象，准确地说，<code>a[&#39;car&#39;]</code> 的值是一个指针，指向了对象 <code>{color: &#39;blue&#39;}</code> 。</p>
+<p>在 JavaScript 当中，把对象赋给一个值，实际上是把对象的内存地址赋给这个值，然后，这个值就指向了该对象。对象是引用类型，不同于基本类型，引用类型存放在堆中。</p>
+<p>当把 <code>a[&#39;car&#39;]</code> 的值赋给 <code>b[&#39;car&#39;]</code> 之时，其实是把这个指针复制了一份，然后赋给 <code>b[&#39;car&#39;]</code>，最终， <code>b[&#39;car&#39;]</code> 也指向了同一个对象。</p>
+<p>后来执行 <code>b.car.color</code> 对 <code>b.car</code> 指向的对象进行操作，<code>a.car</code> 也产生了变化，因为它们指向的就是同一个对象。</p>
+<p>上面这个例子，就属于浅拷贝。</p>
+<h3 id="归纳一下"><a href="#归纳一下" class="headerlink" title="归纳一下"></a>归纳一下</h3><p><strong>浅拷贝，简单粗暴，只管复制，不考虑属性值是不是指向对象</strong>。</p>
+<p>可能上面这个归纳，在这个时候，还是有点模糊，感觉不甚清晰，接下来，来个深拷贝对比一下。</p>
+<h2 id="钻牛角尖深拷贝"><a href="#钻牛角尖深拷贝" class="headerlink" title="钻牛角尖深拷贝"></a>钻牛角尖深拷贝</h2><h3 id="来个栗子-1"><a href="#来个栗子-1" class="headerlink" title="来个栗子"></a>来个栗子</h3><p>先上代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span> (<span class="params">target, source</span>) </span>&#123;</div><div class="line">  <span class="built_in">Object</span>.keys(source).forEach(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">if</span> (getType(source[key]) === <span class="string">'Object'</span>) &#123;</div><div class="line">      target[key] = &#123;&#125;</div><div class="line">      deepCopy(target[key], source[key])</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (getType(source[key]) === <span class="string">'Array'</span>) &#123;</div><div class="line">      target[key] = []</div><div class="line">      deepCopy(target[key], source[key])</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      target[key] = source[key]</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line">  <span class="keyword">return</span> target</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// Get type of parameter val.</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getType</span>(<span class="params">val</span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> reg = <span class="regexp">/^\[object\s(\w*)\]$/</span></div><div class="line">  <span class="keyword">return</span> reg.exec(<span class="built_in">Object</span>.prototype.toString.call(val))[<span class="number">1</span>]</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> a = &#123;</div><div class="line">  <span class="attr">name</span>: <span class="string">'a'</span>,</div><div class="line">  <span class="attr">age</span>: <span class="number">99</span>,</div><div class="line">  <span class="attr">car</span>: &#123;</div><div class="line">    <span class="attr">color</span>: <span class="string">'blue'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> b = &#123;&#125;</div><div class="line"></div><div class="line">deepCopy(b, a)</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(b)</div><div class="line"><span class="comment">// &#123;</span></div><div class="line"><span class="comment">//   name: 'a',</span></div><div class="line"><span class="comment">//   age: 99,</span></div><div class="line"><span class="comment">//   car: &#123;</span></div><div class="line"><span class="comment">//     color: 'blue'</span></div><div class="line"><span class="comment">//   &#125;</span></div><div class="line"><span class="comment">// &#125;</span></div></pre></td></tr></table></figure>
+<p>上面的代码实现了一个深拷贝函数 <code>deepCopy</code>. 这个函数接受两个参数，<code>target</code> 是目标对象，<code>source</code> 是源对象，函数内将源对象的属性悉数拷贝到目标对象。</p>
+<p>函数中首先遍历源对象的属性，分三种情况来处理，分别是当属性值指向对象，指向数组，或者是其他情况。</p>
+<p>第一种情况，当 <code>source[key]</code> 指向对象时，先赋一个空对象给 <code>target[key]</code>，然后再以 <code>target[key]</code> 这个空对象为 <code>target</code>  参数，以 <code>source[key]</code> 为 <code>source</code> 参数，递归调用 <code>deepCopy</code>.</p>
+<p>第二种情况，当 <code>source[key]</code>指向数组，就赋一个空数组给 <code>target[key]</code>，接下来以 <code>target[key]</code> 作为 <code>target</code> 参数，以 <code>source[key]</code>  为 <code>source</code> 参数，递归调用 <code>deepCopy</code>.</p>
+<p>第三种情况，当 <code>source[key]</code> 不是对象也不是数组，那么直接把 <code>source[key]</code> 的值赋给 <code>target[key]</code>.</p>
+<p>遍历结束，<code>deepCopy</code> 返回 <code>target</code>.</p>
+<p>接着，声明了函数 <code>getType</code>, 就是 <code>deepCopy</code> 里面用到的判断数据类型的函数。<code>getType</code> 接受一个参数 <code>val</code>, 并返回 <code>val</code> 的类型。函数内利用 <code>Object.prototype.toString</code> 得到 <code>val</code> 的类型，但这样得到的是类似 <code>&#39;[object String]&#39;</code>以及 <code>&#39;[object Array]&#39;</code> 这样的字符串，还需要加工一下，才能拿到代表类型的字符串，所以声明了一个正则表达式，来进行从 <code>&#39;[object String]&#39;</code> 提取出 <code>&#39;String&#39;</code> 这样的工作。</p>
+<p>然后，声明对象 <code>a</code>, 接着，声明空对象 <code>b</code>, 再执行 <code>deepCopy(b, a)</code> 将 <code>a</code> 深拷贝到 <code>b</code>.</p>
+<p><code>console.log(b)</code> 可知 <code>b</code> 已经成功拿到 <code>a</code> 的可枚举属性。</p>
+<p>接下来，对 <code>b</code> 进行一些操作：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">b.name = <span class="string">'b'</span></div><div class="line">b.car.color = <span class="string">'red'</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(b)</div><div class="line"><span class="comment">// &#123;</span></div><div class="line"><span class="comment">//   name: 'b',</span></div><div class="line"><span class="comment">//   age: 99,</span></div><div class="line"><span class="comment">//   car: &#123;</span></div><div class="line"><span class="comment">//     color: 'red'</span></div><div class="line"><span class="comment">//   &#125;</span></div><div class="line"><span class="comment">// &#125;</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(a)</div><div class="line"><span class="comment">// &#123;</span></div><div class="line"><span class="comment">//   name: 'a',</span></div><div class="line"><span class="comment">//   age: 99,</span></div><div class="line"><span class="comment">//   car: &#123;</span></div><div class="line"><span class="comment">//     color: 'blue'</span></div><div class="line"><span class="comment">//   &#125;</span></div><div class="line"><span class="comment">// &#125;</span></div></pre></td></tr></table></figure>
+<p>像第一个例子一样，将 <code>b</code> 的 <code>name</code> 属性赋值为 <code>&#39;b&#39;</code>, <code>b</code> 的 <code>car</code> 属性的 <code>color</code> 赋值为 <code>&#39;red&#39;</code>.</p>
+<p>打印 <code>b</code>, 发现改变已经生效。</p>
+<p>打印 <code>a</code>, 可见 <code>a</code> 没有像上一个例子那样发生改变。</p>
+<h3 id="剧情解析-1"><a href="#剧情解析-1" class="headerlink" title="剧情解析"></a>剧情解析</h3><p>在这个例子中，当遍历到 <code>a[car]</code> 属性的时候，发现属性值指向的是一个对象，就将一个空对象赋给 <code>b[car]</code>, 再把 <code>a[car]</code> 所指向的对象当做 <code>source</code>, <code>b[car]</code> 指向的空对象当做 <code>target</code>, 执行 <code>deepCopy</code> 操作，将 <code>a[car]</code> 所指的对象属性拷贝给 <code>b[car]</code> 所指的空对象。这个时候， <code>a[car]</code> 和 <code>b[car]</code> 所指的并非同一个对象，所以，任凭怎么操作 <code>b[car]</code>, <code>a[car]</code> 都不会受到丝毫影响。</p>
+<h3 id="归纳一下-1"><a href="#归纳一下-1" class="headerlink" title="归纳一下"></a>归纳一下</h3><p>这就是深拷贝，深拷贝在遍历源对象属性的时候，<strong>遇到可遍历的，如对象和数组，会再深入遍历其属性，并进行拷贝</strong>。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从上面的例子可以知道，深拷贝和浅拷贝，区别在于，在遍历源对象的时候，遇到可遍历的属性值，会不会去进行遍历。浅拷贝是直接将属性值复制过去，而深拷贝则会继续深入遍历并拷贝。</p>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2019/07/20/Vuex基本使用/" class="archive-article-date">
-  	<time datetime="2019-07-20T05:40:05.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-07-20</time>
+      <a href="/2019/07/26/JavaScript-简单粗暴浅拷贝-钻牛角尖深拷贝/" class="archive-article-date">
+  	<time datetime="2019-07-26T13:49:53.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-07-26</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vuex/">Vuex</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
 	</div>
 
       
@@ -225,7 +231,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/20/JavaScript事件代理/">JavaScript 事件代理</a>
+      <a class="article-title" href="/2019/07/17/JavaScript事件代理/">JavaScript 事件代理</a>
     </h1>
   
 
@@ -284,8 +290,8 @@
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2019/07/20/JavaScript事件代理/" class="archive-article-date">
-  	<time datetime="2019-07-20T05:35:25.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-07-20</time>
+      <a href="/2019/07/17/JavaScript事件代理/" class="archive-article-date">
+  	<time datetime="2019-07-17T05:35:25.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-07-17</time>
 </a>
       
 	<div class="article-tag tagcloud">
@@ -320,7 +326,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/20/你好，我是JavaScript的this/">你好，我是 JavaScript 的this</a>
+      <a class="article-title" href="/2019/07/07/你好，我是JavaScript的this/">你好，我是 JavaScript 的this</a>
     </h1>
   
 
@@ -355,13 +361,88 @@
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2019/07/20/你好，我是JavaScript的this/" class="archive-article-date">
-  	<time datetime="2019-07-20T05:31:29.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-07-20</time>
+      <a href="/2019/07/07/你好，我是JavaScript的this/" class="archive-article-date">
+  	<time datetime="2019-07-07T05:31:29.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-07-07</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-JavaScript 函数防抖了解一下" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/29/JavaScript 函数防抖了解一下/">JavaScript 函数防抖了解一下</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>说到防抖，想必多数人首先想到的是相机的防抖。因为我们并不是机器人，所以拿手机拍照的时候，手都会有不易察觉的抖动，这样的抖动会影响相片的质量。手机对这些情况做的一些补偿操作，减小了手抖对成像造成的影响。</p>
+<p>我们都知道，JavaScript 是一门编程语言，不是人类也不是机器人。那什么情况下，会产生“抖动”呢？</p>
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>联想一个平平无奇的搜索框，当用户输入的时候，需要实时给出搜索建议。</p>
+<p>第一反应肯定是监听输入框的 <code>input</code> 事件，随着内容的变化，发出请求，拉取建议的数据。</p>
+<p>如下面的例子（这里 <code>input</code> 被触发时，执行 <code>console.log(&#39;input&#39;)</code>, 并且用 <code>console.log(&#39;fetch&#39;)</code> 代指请求）：</p>
+<p><img src="images/javascript-function-debounce/before_debounce.gif" alt=""></p>
+<p>可以看到，每一个字符的增减，都会触发请求。</p>
+<p>这种情况，就属于“抖动”。</p>
+<p>服务器接收到这样的请求，肯定是一脸懵啊，这谁顶得住？</p>
+<p>这个时候，就需要像手机相机一样，做一些操作，减少抖动对网络请求的影响，减轻服务器的压力。</p>
+<h2 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h2><p>“抖动”情景下，连续输入，导致发送了多次一样的请求。函数防抖的处理方式是：先规定一个时间段，比如一秒，输入内容触发 <code>input</code> ，一秒之后再发送请求，假如一秒内又产生了新的输入，那么重新计时，点击过后一秒再发送请求。</p>
+<p>这样一来，规定时间段内的所有输入，只会产生一次请求。不管打字多快的手速，也战胜不了防抖的函数。</p>
+<h2 id="怎么写"><a href="#怎么写" class="headerlink" title="怎么写"></a>怎么写</h2><p>直接上代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> debounce = <span class="function">(<span class="params">func, delay = <span class="number">200</span></span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">let</span> timeout = <span class="literal">null</span></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    clearTimeout(timeout)</div><div class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">      func.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>)</div><div class="line">    &#125;, delay)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>debounce</code> 函数接受一个函数 <code>func</code> 和一个默认为 200 毫秒延迟时间 <code>delay</code> 作为参数。返回一个函数，触发返回的函数，开始计时，<code>delay</code> 毫秒后触发 <code>func</code>, 假如 <code>delay</code> 时间段内，再次触发这个函数，那么重新计时，<code>delay</code> 毫秒后触发 <code>func</code>.</p>
+<p><code>debounce</code> 首先声明变量 <code>timeout</code>, 用于存放之后 <code>setTimeout</code> 函数返回的定时器编号。</p>
+<p>然后返回一个函数，函数内执行 <code>clearTimeout</code> 来依据先前声明的 <code>timeout</code> 来清除定时器。当然，一开始，传入的 <code>timeout</code> 值为 <code>null</code>, 这时的清除操作忽略不计。</p>
+<p>接着，执行 <code>setTimeout</code>, 在至少 <code>delay</code> 规定的毫秒后，将 <code>setTimeout</code> 的回调函数添加到当前事件队列，回调内执行 <code>func</code> 函数。并且把返回的定时器编号赋值给 <code>timeout</code> , 这样，下一次触发  <code>debounce</code> 返回的函数时，就可以清除通过上面的 <code>clearTimeout(timeout)</code> 来清除定时器 。</p>
+<p>注意到上面执行 <code>func</code> 用的是 <code>func.apply(this, arguments)</code>, 这样一来，就可以对 <code>debounce</code> 返回的那个函数传递参数，<code>func</code> 执行的时候，再把参数传给 <code>func</code>.</p>
+<p>来用一下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> suggest = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'fetch'</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> debounceSuggest = debounce(suggest, <span class="number">500</span>)</div><div class="line"></div><div class="line"><span class="keyword">let</span> btnSearch = <span class="built_in">document</span>.getElementById(<span class="string">'search'</span>)</div><div class="line">btnSearch.addEventListener(<span class="string">'input'</span>, () =&gt; &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'input'</span>)</div><div class="line">  debounceSuggest()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>这里将 <code>suggest</code> 函数传入 <code>debounce</code> 函数，并设置延迟时间为 500 毫秒。 <code>debounce</code> 返回的函数赋给 <code>debounceSuggest</code> , 然后在提交按钮 <code>btnSearch</code> 的 <code>input</code> 事件回调中执行 <code>debounceSuggest</code>.</p>
+<p>看下效果：</p>
+<p><img src="images/javascript-function-debounce/after_debounce.gif" alt=""></p>
+<p> 上图中，一开始的几次连续输入，都不会触发 <code>suggest</code>，打印 <code>fetch</code> ，直到整个单词 <code>helllo</code> 输入完成，才触发了一次 <code>suggest</code>. 接着连续删除，也只触发了一次 <code>suggest</code>.</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>函数的防抖将一定时间内的多次操作，减少为一次，去除冗余，节约资源。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2019/06/29/JavaScript 函数防抖了解一下/" class="archive-article-date">
+  	<time datetime="2019-06-29T05:04:37.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-06-29</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/函数防抖/">函数防抖</a></li></ul>
 	</div>
 
       
@@ -391,7 +472,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/20/JavaScript节流函数/">JavaScript 节流函数</a>
+      <a class="article-title" href="/2019/06/22/JavaScript节流函数/">JavaScript 节流函数</a>
     </h1>
   
 
@@ -436,8 +517,8 @@
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2019/07/20/JavaScript节流函数/" class="archive-article-date">
-  	<time datetime="2019-07-20T05:20:03.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-07-20</time>
+      <a href="/2019/06/22/JavaScript节流函数/" class="archive-article-date">
+  	<time datetime="2019-06-22T05:20:03.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-06-22</time>
 </a>
       
 	<div class="article-tag tagcloud">
@@ -462,7 +543,7 @@
 
 
   
-    <article id="post-JavaScript 函数防抖了解一下" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Vuex基本使用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -472,7 +553,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/20/JavaScript 函数防抖了解一下/">JavaScript 函数防抖了解一下</a>
+      <a class="article-title" href="/2019/06/17/Vuex基本使用/">Vuex 基本使用</a>
     </h1>
   
 
@@ -480,44 +561,53 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>说到防抖，想必多数人首先想到的是相机的防抖。因为我们并不是机器人，所以拿手机拍照的时候，手都会有不易察觉的抖动，这样的抖动会影响相片的质量。手机对这些情况做的一些补偿操作，减小了手抖对成像造成的影响。</p>
-<p>我们都知道，JavaScript 是一门编程语言，不是人类也不是机器人。那什么情况下，会产生“抖动”呢？</p>
-<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>联想一个平平无奇的搜索框，当用户输入的时候，需要实时给出搜索建议。</p>
-<p>第一反应肯定是监听输入框的 <code>input</code> 事件，随着内容的变化，发出请求，拉取建议的数据。</p>
-<p>如下面的例子（这里 <code>input</code> 被触发时，执行 <code>console.log(&#39;input&#39;)</code>, 并且用 <code>console.log(&#39;fetch&#39;)</code> 代指请求）：</p>
-<p><img src="images/javascript-function-debounce/before_debounce.gif" alt=""></p>
-<p>可以看到，每一个字符的增减，都会触发请求。</p>
-<p>这种情况，就属于“抖动”。</p>
-<p>服务器接收到这样的请求，肯定是一脸懵啊，这谁顶得住？</p>
-<p>这个时候，就需要像手机相机一样，做一些操作，减少抖动对网络请求的影响，减轻服务器的压力。</p>
-<h2 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h2><p>“抖动”情景下，连续输入，导致发送了多次一样的请求。函数防抖的处理方式是：先规定一个时间段，比如一秒，输入内容触发 <code>input</code> ，一秒之后再发送请求，假如一秒内又产生了新的输入，那么重新计时，点击过后一秒再发送请求。</p>
-<p>这样一来，规定时间段内的所有输入，只会产生一次请求。不管打字多快的手速，也战胜不了防抖的函数。</p>
-<h2 id="怎么写"><a href="#怎么写" class="headerlink" title="怎么写"></a>怎么写</h2><p>直接上代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> debounce = <span class="function">(<span class="params">func, delay = <span class="number">200</span></span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">let</span> timeout = <span class="literal">null</span></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    clearTimeout(timeout)</div><div class="line">    timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">      func.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>)</div><div class="line">    &#125;, delay)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><code>debounce</code> 函数接受一个函数 <code>func</code> 和一个默认为 200 毫秒延迟时间 <code>delay</code> 作为参数。返回一个函数，触发返回的函数，开始计时，<code>delay</code> 毫秒后触发 <code>func</code>, 假如 <code>delay</code> 时间段内，再次触发这个函数，那么重新计时，<code>delay</code> 毫秒后触发 <code>func</code>.</p>
-<p><code>debounce</code> 首先声明变量 <code>timeout</code>, 用于存放之后 <code>setTimeout</code> 函数返回的定时器编号。</p>
-<p>然后返回一个函数，函数内执行 <code>clearTimeout</code> 来依据先前声明的 <code>timeout</code> 来清除定时器。当然，一开始，传入的 <code>timeout</code> 值为 <code>null</code>, 这时的清除操作忽略不计。</p>
-<p>接着，执行 <code>setTimeout</code>, 在至少 <code>delay</code> 规定的毫秒后，将 <code>setTimeout</code> 的回调函数添加到当前事件队列，回调内执行 <code>func</code> 函数。并且把返回的定时器编号赋值给 <code>timeout</code> , 这样，下一次触发  <code>debounce</code> 返回的函数时，就可以清除通过上面的 <code>clearTimeout(timeout)</code> 来清除定时器 。</p>
-<p>注意到上面执行 <code>func</code> 用的是 <code>func.apply(this, arguments)</code>, 这样一来，就可以对 <code>debounce</code> 返回的那个函数传递参数，<code>func</code> 执行的时候，再把参数传给 <code>func</code>.</p>
-<p>来用一下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> suggest = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'fetch'</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> debounceSuggest = debounce(suggest, <span class="number">500</span>)</div><div class="line"></div><div class="line"><span class="keyword">let</span> btnSearch = <span class="built_in">document</span>.getElementById(<span class="string">'search'</span>)</div><div class="line">btnSearch.addEventListener(<span class="string">'input'</span>, () =&gt; &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'input'</span>)</div><div class="line">  debounceSuggest()</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>这里将 <code>suggest</code> 函数传入 <code>debounce</code> 函数，并设置延迟时间为 500 毫秒。 <code>debounce</code> 返回的函数赋给 <code>debounceSuggest</code> , 然后在提交按钮 <code>btnSearch</code> 的 <code>input</code> 事件回调中执行 <code>debounceSuggest</code>.</p>
-<p>看下效果：</p>
-<p><img src="images/javascript-function-debounce/after_debounce.gif" alt=""></p>
-<p> 上图中，一开始的几次连续输入，都不会触发 <code>suggest</code>，打印 <code>fetch</code> ，直到整个单词 <code>helllo</code> 输入完成，才触发了一次 <code>suggest</code>. 接着连续删除，也只触发了一次 <code>suggest</code>.</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>函数的防抖将一定时间内的多次操作，减少为一次，去除冗余，节约资源。</p>
+        <h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><p>查看<a href="https://vuex.vuejs.org/zh/" target="_blank" rel="external">官方文档</a>可以知道：</p>
+<blockquote>
+<p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。</p>
+</blockquote>
+<p>怎么理解呢？就拿我两位数的资产的银行卡来说吧，基本的存钱取钱，就是状态管理。</p>
+<h2 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h2><p>我们将以一个简单的 Todo 作为例子，来讲解 Vuex 的基本使用。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install vuex --save</div></pre></td></tr></table></figure>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>首先需要在项目的 src 目录下，新建一个 Vuex 的目录 store，结构如下：<br><img src="/images/vuex-base/tree.PNG" alt=""></p>
+<p>初始化 Vuex：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// index.js</span></div><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line"><span class="keyword">import</span> state <span class="keyword">from</span> <span class="string">'./state.js'</span></div><div class="line"></div><div class="line">Vue.use(Vuex)</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store(&#123;</div><div class="line">  state</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>引入 Vuex 是理所当然的，除此之外执行 <code>Vue.use(Vuex)</code> 来全局安装 Vuex. <code>Vuex.Store</code> 即 Vuex 的构造函数，来初始化 Vuex 实例。这里可以看到，我们在 Vuex 构造函数中传入了一个 <code>state</code> 选项，那这个 state 是什么呢？</p>
+<h3 id="State"><a href="#State" class="headerlink" title="State"></a>State</h3><p>State 从字面意思理解，就是状态，在 Vuex 里面，什么代表了状态呢？数据。State 是 Vuex 这一状态管理工具的唯一的数据源，所有的数据都储存在里面。<br>State 的写法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// state.js</span></div><div class="line"><span class="keyword">const</span> state = &#123;</div><div class="line">  <span class="attr">todoList</span>: <span class="built_in">JSON</span>.parse(localStorage.getItem(<span class="string">'todoList'</span>)) || []</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> state</div></pre></td></tr></table></figure>
+<p>这里声明了一个 state, 里面有一个 todoList 的字段，todoList 的数据是去 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage" target="_blank" rel="external">localStorage</a> 里面拿的，如果没有，就是一个空数组。<br>好了，现在我们的状态已经有了，接下来就是要在组件里面，获取这个 state, 也就是让我们的组件拿到这里的数据。</p>
+<h3 id="Getter"><a href="#Getter" class="headerlink" title="Getter"></a>Getter</h3><p>Getter, 顾名思义，就是一个“取”的操作，来拿 state 里面的数据。Getter 的写法如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// getters.js</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> todoList = <span class="function"><span class="params">state</span> =&gt;</span> state.todoList</div></pre></td></tr></table></figure>
+<p>这里声明并输出了一个 <code>todoList</code> 函数，函数的参数是 <code>state</code>, 返回值  <code>state.todoList</code>.<br>Getter 函数接受 state 作为它的第一个参数。这里我们就取到了上一节 state 里面的 todoList.<br>在需要 todoList 数据的组件当中，可以利用 <code>mapGetters</code> 将数据映射到计算属性。写法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; mapGetters &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">export <span class="keyword">default</span> &#123;</div><div class="line">  ...</div><div class="line">  computed: &#123;</div><div class="line">    ...mapGetters([</div><div class="line">      <span class="string">'todoList'</span></div><div class="line">    ])</div><div class="line">  &#125;</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用的时候，和普通的计算属性别无二致:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"todo-list"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"(item, index) in todoList"</span> <span class="attr">:key</span>=<span class="string">"index"</span> <span class="attr">class</span>=<span class="string">"todo-item"</span> &gt;</span></div><div class="line">      ...</div><div class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这样，<code>todoList</code> 就被渲染到了页面中：<br><img src="/images/vuex-base/getter-render.PNG" alt="todoList"></p>
+<p>当然，不管是标记一个事项为完成，还是添加删除事项，todoList 都会产生变化，也就是 state 会变化。那我们怎么去改变 state 呢？这就需要 mutation 的帮助 。</p>
+<h3 id="Mutation"><a href="#Mutation" class="headerlink" title="Mutation"></a>Mutation</h3><p>Mutation 是 Vuex 当中改变 state 唯一的方法。Mutation 使用与事件处理函数非常相似，都具有类型和回调函数。<br>这里把 mutation 比作事件，首先来规定“事件类型”：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// mutation-types.js</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> SET_TODO_LIST = <span class="string">'SET_TODO_LIST'</span></div></pre></td></tr></table></figure>
+<p>这里规定了一个 <code>SET_TODO_LIST</code> 的类型。<br>类型是不可变的，所以我们将其声明为常量。<br>然后再来写“事件”的“回调”：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// mutations.js</span></div><div class="line"><span class="keyword">import</span> * <span class="keyword">as</span> types <span class="keyword">from</span> <span class="string">'./mutation-types'</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> mutations = &#123;</div><div class="line">  [types.SET_TODO_LIST] (state, todoList) &#123;</div><div class="line">    state.todoList = todoList</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> mutations</div></pre></td></tr></table></figure>
+<p>可以看到， mutations 是一个对象，一个“事件类型”就对应可一个处理函数。处理函数接受 <code>state</code> 作为它的第一个参数，第二个参数是额外的，一般称之为“荷载 (payload) ”。<br>这里我们的荷载是一个 <code>todoList</code>，这个处理函数将 <code>state</code> 原来的 <code>todoList</code> 改为传入的荷载。<br>要使用 mutations，在 Vuex 的构造函数中，就要将 <code>mutations</code> 选项加进去：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line"><span class="keyword">import</span> state <span class="keyword">from</span> <span class="string">'./state.js'</span></div><div class="line"><span class="keyword">import</span> * <span class="keyword">as</span> getters <span class="keyword">from</span> <span class="string">'./getters'</span></div><div class="line"><span class="keyword">import</span> mutations <span class="keyword">from</span> <span class="string">'./mutations'</span></div><div class="line"><span class="keyword">import</span> createLogger <span class="keyword">from</span> <span class="string">'vuex/dist/logger'</span></div><div class="line"></div><div class="line">Vue.use(Vuex)</div><div class="line"></div><div class="line"><span class="keyword">const</span> debug = process.env.NODE_ENV !== <span class="string">'production'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store(&#123;</div><div class="line">  state,</div><div class="line">  getters,</div><div class="line">  mutations,</div><div class="line">  <span class="attr">plugins</span>: debug ? [createLogger()] : []</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>现在，构造函数中已经传入了 <code>mutations</code>，接下来，就是在组件中使用 mutations（这里的第四个选项 <code>plugins</code> 并不影响 mutation 的功能，用途是在控制台打印 Vuex 操作的信息）.</p>
+<p>TodoList 组件中，我们在“添加事项”这一动作提交 mutation, 改变 state.<br>组件内的代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// todo-list.vue</span></div><div class="line">  <span class="keyword">import</span> &#123; mapGetters, mapMutations &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line"></div><div class="line">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">    ...</div><div class="line">    methods: &#123;</div><div class="line">      ...</div><div class="line">      addItem () &#123;</div><div class="line">        <span class="keyword">let</span> itemText  = <span class="built_in">window</span>.prompt(<span class="string">'请输入要添加的事项：'</span>)</div><div class="line">        <span class="keyword">if</span> (itemText) &#123;</div><div class="line">          <span class="keyword">let</span> list = <span class="keyword">this</span>.todoList.slice();</div><div class="line">          list.push(&#123;</div><div class="line">            <span class="attr">text</span>: itemText,</div><div class="line">            <span class="attr">done</span>: <span class="literal">false</span>,</div><div class="line">            <span class="attr">checked</span>: <span class="literal">false</span></div><div class="line">          &#125;)</div><div class="line">          <span class="keyword">this</span>.setTodoList(list)</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      ...</div><div class="line">      ...mapMutations(&#123;</div><div class="line">        <span class="attr">setTodoList</span>: <span class="string">'SET_TODO_LIST'</span></div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>接下来就去 todo 里面添加一个条目。如图，添加了一个 coding 事项：<br><img src="/images/vuex-base/mutation-interface.PNG" alt="添加事项"></p>
+<p>可在 vue 的 devtool 观察到如下结果：<br><img src="/images/vuex-base/mutations-vue-devtool.PNG" alt=""></p>
+<p>可以看到 mutation 的 payload 以及 type 信息。<br>再来观察 Vuex 的 createLogger 插件在控制台输出的信息：<br><img src="/images/vuex-base/mutations-console.PNG" alt=""><br>可以看到，这里进行了一次  <code>SET_TODO_LIST</code> 的 mutation 操作。从 <code>prev state</code>可以知道 ，操作前， <code>todoList</code> 只有三个条目。进行 <code>SET_TODO_LIST</code> 操作时，传入的荷载为四个条目的 todoList。操作后，观察 <code>next state</code> 可知，操作后的 <code>todoList</code> 已经有四个事项。<br>在线上的 <a href="https://zhongyangxun.github.io/vuex-demo/dist/" target="_blank" rel="external">Demo</a><br> 中可打开控制台，添加或者删除条目，观察 Vuex 的状态变化。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这里用一个 todo 的例子，简单介绍了 Vuex 基本的  getters 和 mutatiosn 操作，更多的细节，可参考<a href="https://vuex.vuejs.org/zh/" target="_blank" rel="external">官方文档</a><br>。<br>Vuex 的应用场景是，当 n 多个组件之间的相互通信让人眼花缭乱，那么借助 Vuex 保存多个组件共享的状态，只需操作 state，就能在组件之间同步状态。</p>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2019/07/20/JavaScript 函数防抖了解一下/" class="archive-article-date">
-  	<time datetime="2019-07-20T05:04:37.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-07-20</time>
+      <a href="/2019/06/17/Vuex基本使用/" class="archive-article-date">
+  	<time datetime="2019-06-17T05:40:05.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-06-17</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/函数防抖/">函数防抖</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vuex/">Vuex</a></li></ul>
 	</div>
 
       
@@ -801,7 +891,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 钟阳勋
+    		&copy; 2019 菲利普马洛
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten

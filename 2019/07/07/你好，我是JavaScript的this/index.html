@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>你好，我是 JavaScript 的this | zhongyangxun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JavaScript 有个关键字 this,  时不时冒出来，让你猜一猜，“我到底指向谁？”
+这个 this 指向 window, 那个 this 又是刚刚 new 出来的新对象，这里又冒出来一个指向 call 函数的第一个参数的。
+到底什么鬼？一团乱麻。
+线索快刀斩乱麻，这里的快刀同学只会说一句话：”this 指向函数执行的环境对象。”
+怎么理解带着上面的线索，去几个场景，来看一看，this">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你好，我是 JavaScript 的this">
+<meta property="og:url" content="http://yoursite.com/2019/07/07/你好，我是JavaScript的this/index.html">
+<meta property="og:site_name" content="zhongyangxun">
+<meta property="og:description" content="JavaScript 有个关键字 this,  时不时冒出来，让你猜一猜，“我到底指向谁？”
+这个 this 指向 window, 那个 this 又是刚刚 new 出来的新对象，这里又冒出来一个指向 call 函数的第一个参数的。
+到底什么鬼？一团乱麻。
+线索快刀斩乱麻，这里的快刀同学只会说一句话：”this 指向函数执行的环境对象。”
+怎么理解带着上面的线索，去几个场景，来看一看，this">
+<meta property="og:updated_time" content="2019-07-20T06:15:37.200Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你好，我是 JavaScript 的this">
+<meta name="twitter:description" content="JavaScript 有个关键字 this,  时不时冒出来，让你猜一猜，“我到底指向谁？”
+这个 this 指向 window, 那个 this 又是刚刚 new 出来的新对象，这里又冒出来一个指向 call 函数的第一个参数的。
+到底什么鬼？一团乱麻。
+线索快刀斩乱麻，这里的快刀同学只会说一句话：”this 指向函数执行的环境对象。”
+怎么理解带着上面的线索，去几个场景，来看一看，this">
+  
+    <link rel="alternative" href="/atom.xml" title="zhongyangxun" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="./images/head.jpg" class="js-avatar show">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">菲利普马洛</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/随笔">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/ZhongYangXun" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/5321847680/" title="weibo">weibo</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">菲利普马洛</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="./images/head.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">菲利普马洛</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/ZhongYangXun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/5321847680/" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-你好，我是JavaScript的this" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      你好，我是 JavaScript 的this
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> JavaScript 有个关键字 <code>this</code>,  时不时冒出来，让你猜一猜，“我到底指向谁？”</p>
+<p>这个 <code>this</code> 指向 <code>window</code>, 那个 <code>this</code> 又是刚刚 <code>new</code> 出来的新对象，这里又冒出来一个指向 <code>call</code> 函数的第一个参数的。</p>
+<p>到底什么鬼？一团乱麻。</p>
+<h2 id="线索"><a href="#线索" class="headerlink" title="线索"></a>线索</h2><p>快刀斩乱麻，这里的快刀同学只会说一句话：”<code>this</code> 指向函数执行的环境对象。”</p>
+<h2 id="怎么理解"><a href="#怎么理解" class="headerlink" title="怎么理解"></a>怎么理解</h2><p>带着上面的线索，去几个场景，来看一看，<code>this</code> 在各种情况下，到底指向哪位。</p>
+<h3 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line">a() <span class="comment">// window</span></div></pre></td></tr></table></figure>
+<p>在浏览器中，<code>a</code> 的执行环境即为 <code>window</code>, 所以 <code>this</code> 指向了 <code>window</code>. </p>
+<h3 id="方法调用"><a href="#方法调用" class="headerlink" title="方法调用"></a>方法调用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> obj = &#123;</div><div class="line">  <span class="attr">b</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">obj.b() <span class="comment">// obj</span></div></pre></td></tr></table></figure>
+<p>当作为对象的方法时，函数的 <code>this</code> 指向其所属对象。</p>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.age = <span class="number">100</span> </div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">GirlFriend</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.age = <span class="number">18</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> girlFriend = <span class="keyword">new</span> GirlFriend()</div><div class="line"><span class="built_in">console</span>.log(girlFriend.age) <span class="comment">// 18</span></div></pre></td></tr></table></figure>
+<p>从 <code>girlFriend.age</code> 为 <code>18</code> 可以看出，以构造函数的形式执行函数时，<code>this</code> 指向其返回的对象。 </p>
+<h3 id="改变-this-指向"><a href="#改变-this-指向" class="headerlink" title="改变 this 指向"></a>改变 <code>this</code> 指向</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.hello = <span class="string">'Hello, I am window.'</span></div><div class="line"></div><div class="line"><span class="keyword">let</span> obj = &#123;</div><div class="line">  <span class="attr">hello</span>: <span class="string">'Hello, I am obj.'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHello</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.hello)</div><div class="line">&#125;</div><div class="line"></div><div class="line">sayHello() <span class="comment">// 'Hello, I am window.'</span></div><div class="line">sayHello.call(obj) <span class="comment">// 'Hello, I am obj.'</span></div><div class="line">sayHello.apply(obj) <span class="comment">// 'Hello, I am obj.'</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> hi = sayHello.bind(obj)</div><div class="line">hi() <span class="comment">// 'Hello, I am obj.'</span></div></pre></td></tr></table></figure>
+<p><code>call</code> 方法和 <code>apply</code> 方法接收的第一个参数，是一个为函数指定的 <code>this</code>. 上面的代码中，第一次函数调用形式执行 <code>sayHello</code>, <code>this</code> 指向的是 <code>window</code>. 后面的 <code>call</code> 和 <code>apply</code> 指定的 <code>this</code> 是对象 <code>obj</code>,  <code>sayHello</code> 函数执行这两个方法时，<code>this</code> 指向了 <code>obj</code>.</p>
+<p><code>bind</code> 方法的第一个参数也是指定的 <code>this</code>, 执行 <code>bind</code> 方法，返回一个拥有指定 <code>this</code> 的函数。上面代码中的 <code>hi</code> 指向一个函数，这个函数是 <code>this</code> 为 <code>obj</code> 的  <code>sayHello</code>.  </p>
+<h3 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.hello = <span class="string">'Hello, I am window.'</span></div><div class="line"></div><div class="line"><span class="keyword">let</span> obj = &#123;</div><div class="line">  <span class="attr">hello</span>: <span class="string">'Hello, I am obj.'</span>,</div><div class="line">  <span class="attr">foo</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.hello)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> a = obj.foo()</div><div class="line">a() <span class="comment">// 'Hello, I am obj.'</span></div><div class="line"></div><div class="line"><span class="keyword">let</span> b = obj.foo</div><div class="line"><span class="keyword">let</span> c = b()</div><div class="line">c() <span class="comment">// 'Hello, I am window.'</span></div></pre></td></tr></table></figure>
+<p>箭头函数没有自己的 <code>this</code>, 当箭头函数内部出现 <code>this</code>, 可将它理解为一个变量——“我没有这个变量，去我的外面一层找一找有没有”。所以，箭头函数的 <code>this</code>, 指向的是定义箭头函数时的外部环境。</p>
+<p>上面代码中，对象 <code>obj</code> 的方法 <code>foo</code>, 返回一个箭头函数，该箭头函数打印 <code>this.hello</code>.</p>
+<p>变量 <code>a</code> 的值是 <code>obj.foo()</code> 的返回值，即为箭头函数。<code>obj.foo()</code> 是方法调用，此时，<code>foo</code> 的  <code>this</code> 指向的是对象 <code>obj</code>.  而 <code>foo</code> 中的箭头函数用到的 <code>this</code> 是从箭头函数的外部（即 <code>foo</code>）拿到的，也指向 <code>obj</code>.</p>
+<p>对象 <code>obj</code> 的 <code>foo</code> 赋值给了变量  <code>b</code>, <code>let b = obj.foo</code> 相当于下面的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> b = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.hello)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>接下来执行 <code>b</code>, 把返回的箭头函数赋值给 <code>c</code>. 此时，执行 <code>b</code> 是一次函数调用，函数 <code>b</code> 的 <code>this</code> 指向的是它的运行环境 <code>window</code>. 箭头函数拿到的 <code>this</code>, 是它外层函数的 <code>this</code>, 也就是 <code>window</code>.  </p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>this</code> 指向函数执行的环境对象。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2019/07/07/你好，我是JavaScript的this/" class="archive-article-date">
+  	<time datetime="2019-07-07T05:31:29.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-07-07</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/07/17/JavaScript事件代理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          JavaScript 事件代理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/06/29/JavaScript 函数防抖了解一下/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JavaScript 函数防抖了解一下</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 菲利普马洛
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vue-js/" style="font-size: 10px;">vue.js</a> <a href="/tags/函数防抖/" style="font-size: 10px;">函数防抖</a> <a href="/tags/样式/" style="font-size: 10px;">样式</a> <a href="/tags/相对路径/" style="font-size: 10px;">相对路径</a> <a href="/tags/绝对路径/" style="font-size: 10px;">绝对路径</a> <a href="/tags/节流/" style="font-size: 10px;">节流</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接1</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接2</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接3</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接4</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接5</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接6</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
