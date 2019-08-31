@@ -22,7 +22,7 @@
 到底什么鬼？一团乱麻。
 线索快刀斩乱麻，这里的快刀同学只会说一句话：”this 指向函数执行的环境对象。”
 怎么理解带着上面的线索，去几个场景，来看一看，this">
-<meta property="og:updated_time" content="2019-07-20T06:15:37.200Z">
+<meta property="og:updated_time" content="2019-08-09T14:24:52.365Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="你好，我是 JavaScript 的this">
 <meta name="twitter:description" content="JavaScript 有个关键字 this,  时不时冒出来，让你猜一猜，“我到底指向谁？”
@@ -184,6 +184,10 @@
 <p>对象 <code>obj</code> 的 <code>foo</code> 赋值给了变量  <code>b</code>, <code>let b = obj.foo</code> 相当于下面的代码：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> b = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.hello)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>接下来执行 <code>b</code>, 把返回的箭头函数赋值给 <code>c</code>. 此时，执行 <code>b</code> 是一次函数调用，函数 <code>b</code> 的 <code>this</code> 指向的是它的运行环境 <code>window</code>. 箭头函数拿到的 <code>this</code>, 是它外层函数的 <code>this</code>, 也就是 <code>window</code>.  </p>
+<h3 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h3><p>严格模式下，会对函数的 <code>this</code> 指向造成影响。</p>
+<p>先上代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line"><span class="built_in">window</span>.hello = <span class="string">'Hello, I am window.'</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHello</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.hello)</div><div class="line">&#125;</div><div class="line"></div><div class="line">sayHello() <span class="comment">// Uncaught TypeError: Cannot read property 'hello' of undefined.</span></div></pre></td></tr></table></figure>
+<p>在严格模式下，函数调用的情景会受到影响。这个时候，函数内的 <code>this</code> 不再指向全局对象。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>this</code> 指向函数执行的环境对象。</p>
 
       
@@ -313,7 +317,7 @@
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vue-js/" style="font-size: 10px;">vue.js</a> <a href="/tags/函数防抖/" style="font-size: 10px;">函数防抖</a> <a href="/tags/样式/" style="font-size: 10px;">样式</a> <a href="/tags/相对路径/" style="font-size: 10px;">相对路径</a> <a href="/tags/绝对路径/" style="font-size: 10px;">绝对路径</a> <a href="/tags/节流/" style="font-size: 10px;">节流</a>
+    				<a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vue-js/" style="font-size: 10px;">vue.js</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/函数防抖/" style="font-size: 10px;">函数防抖</a> <a href="/tags/样式/" style="font-size: 10px;">样式</a> <a href="/tags/相对路径/" style="font-size: 10px;">相对路径</a> <a href="/tags/绝对路径/" style="font-size: 10px;">绝对路径</a> <a href="/tags/节流/" style="font-size: 10px;">节流</a>
     			</div>
     	</section>
     

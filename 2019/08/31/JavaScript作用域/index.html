@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>JavaScript 作用域 | zhongyangxun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="作用域链举个栗子作用域和变量有关，先看简单的代码：
+12345678910var a = &apos;a&apos;function foo () &amp;#123;  var b = &apos;b&apos;  console.log(a)&amp;#125;foo() // &apos;a&apos;console.log(b) // Uncaught ReferenceError: b is not defined
+从上面代码的执行结果可以看出，foo 函数取到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 作用域">
+<meta property="og:url" content="http://yoursite.com/2019/08/31/JavaScript作用域/index.html">
+<meta property="og:site_name" content="zhongyangxun">
+<meta property="og:description" content="作用域链举个栗子作用域和变量有关，先看简单的代码：
+12345678910var a = &apos;a&apos;function foo () &amp;#123;  var b = &apos;b&apos;  console.log(a)&amp;#125;foo() // &apos;a&apos;console.log(b) // Uncaught ReferenceError: b is not defined
+从上面代码的执行结果可以看出，foo 函数取到">
+<meta property="og:updated_time" content="2019-08-31T03:35:32.062Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 作用域">
+<meta name="twitter:description" content="作用域链举个栗子作用域和变量有关，先看简单的代码：
+12345678910var a = &apos;a&apos;function foo () &amp;#123;  var b = &apos;b&apos;  console.log(a)&amp;#125;foo() // &apos;a&apos;console.log(b) // Uncaught ReferenceError: b is not defined
+从上面代码的执行结果可以看出，foo 函数取到">
+  
+    <link rel="alternative" href="/atom.xml" title="zhongyangxun" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="./images/head.jpg" class="js-avatar show">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">菲利普马洛</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/随笔">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="3" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/ZhongYangXun" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/5321847680/" title="weibo">weibo</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">菲利普马洛</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="./images/head.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">菲利普马洛</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/ZhongYangXun" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/5321847680/" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-JavaScript作用域" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript 作用域
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><h3 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h3><p>作用域和变量有关，先看简单的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="string">'a'</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> b = <span class="string">'b'</span></div><div class="line">  <span class="built_in">console</span>.log(a)</div><div class="line">&#125;</div><div class="line"></div><div class="line">foo() <span class="comment">// 'a'</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(b) <span class="comment">// Uncaught ReferenceError: b is not defined</span></div></pre></td></tr></table></figure>
+<p>从上面代码的执行结果可以看出，<code>foo</code> 函数取到了它外部的变量 <code>a</code>, 而最外层的 <code>console.log(b)</code> 操作并没能取得 <code>foo</code> 函数里面的变量 <code>b</code>.</p>
+<p>上面代码中，最外层的变量对象保存了变量 <code>a</code> 以及函数 <code>foo</code>，代码执行所需的变量和函数都从变量对象里面取得。 变量对象和当前的执行环境相关联，当前执行环境的代码执行结束后，该环境被丢弃，其中保存的变量和函数也随之被丢弃。</p>
+<p>每个函数都拥有自己的执行环境，当函数执行时，执行环境被拾起，函数执行完毕，执行环境被丢弃。</p>
+<p>上面代码最外层的 <code>console.log(b)</code> 试图取一个变量 <code>b</code>, 但是当前的变量对象，也就是最外层的变量对象，并没有保存变量 <code>b</code>, 所以代码报错。</p>
+<p>而 <code>foo</code> 为什么能够取到外部的变量 <code>a</code> 呢？</p>
+<p>分析一下 <code>foo</code> 取得 <code>a</code> 的过程。</p>
+<p>当 <code>foo</code> 执行的时候， <code>JavaScript</code> 创建了一个活动对象。函数的活动对象是在函数执行时产生的，包含了函数的形参和函数内声明的变量等。 <code>foo</code> 声明的 <code>b</code> 在就 <code>foo</code> 的活动对象里面。在函数的执行环境中，活动对象被当做变量对象。</p>
+<p>可是，<code>foo</code> 需要的是 <code>a</code> 啊，<code>foo</code> 自身的变量对象没有这个变量。</p>
+<p>不要着急，在创建 <code>foo</code> 的时候，也创建了作用域链，里面包含了外一层的变量对象，保存在函数的 <code>[[Scope]]</code> 属性当中。</p>
+<p>在调用 <code>foo</code> 的时候，创建 <code>foo</code> 的执行环境和活动对象，然后复制 <code>[[Scope]]</code> 属性构建作用域链，再把当前活动对象插队放到作用域链的最前面。这个时候，<code>foo</code> 自身的活动对象和外部的变量对象就在这个作用域里面排队。</p>
+<p>当 <code>foo</code> 在作用域链的最前面，也就是自身的活动对象里面，找不到变量 <code>b</code> 的时候，就会去作用域链的下一个对象里面查找。</p>
+<h3 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h3><p>作用域链依次保存了当前执行环境的变量对象，以及外层执行环境的变量对象。就像是变量对象在排队，越是内层的变量对象，越在前面。若无法在当前的变量对象找到一个变量，就会顺着作用域链，依次查找外部的变量对象。</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>闭包，看着这两个字，顾名思义也思不出什么来，不如先把它从脑中先抛开。</p>
+<h3 id="举个栗子-1"><a href="#举个栗子-1" class="headerlink" title="举个栗子"></a>举个栗子</h3><p>从文章的第一个例子，可以知道，在函数的外部是访问不了函数内部的变量的。</p>
+<p>简单粗暴地去访问，当然访问不了，但也可以通过一系列操作，来访问函数内部变量。</p>
+<p>看看简单的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> a = <span class="number">0</span></div><div class="line"></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(a++)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> fn = bar()</div><div class="line"></div><div class="line">fn() <span class="comment">// 0</span></div><div class="line">fn() <span class="comment">// 1</span></div><div class="line">fn() <span class="comment">// 2</span></div></pre></td></tr></table></figure>
+<p>上面的 <code>bar</code> 定义变量 <code>a</code> 为 <code>0</code>, 并函数返回一个函数，返回的函数打印变量 <code>a</code>， 然后对变量 <code>a</code> 进行递增操作。</p>
+<p>执行 <code>bar</code> ，并将返回的函数赋值给 <code>fn</code>. 执行 <code>fn</code>, 从执行结果可以看出，这个全局变量的 <code>fn</code> 居然访问到了 <code>bar</code> 内的变量 <code>a</code>.</p>
+<p>现在去采访一下 <code>fn</code>, 看看他是怎么做到的。</p>
+<p><code>fn</code> 的值是 <code>bar</code> 函数的返回值，也就是 <code>bar</code> 里面返回的匿名函数。</p>
+<p>当匿名函数被创建的时候，和所有函数一样，也是将外部的变量对象保存到自身的 <code>[[Scope]]</code> 属性当中，匿名函数保存的，自然是 <code>bar</code> 的活动对象，里面包含了变量 <code>b</code>.</p>
+<p>现在慢动作回放一下 <code>var fn = bar()</code> 这个操作：</p>
+<ol>
+<li>初始化 <code>bar</code> 的活动对象 ，将 <code>a</code> 保存到活动对象</li>
+<li>执行 <code>bar</code>  内代码，给 <code>a</code> 赋值为 <code>0</code></li>
+<li>执行 <code>bar</code>  内代码，创建匿名函数，将 <code>bar</code> 的活动对象保存到匿名函数 <code>[[Scope]]</code> 属性</li>
+<li><code>bar</code> 返回匿名函数，<code>bar</code> 执行完毕，其执行环境被丢弃</li>
+<li><code>fn</code> 接受 <code>bar</code> 返回的匿名函数</li>
+</ol>
+<p>注意到步骤 4, 虽然 <code>bar</code> 的执行环境被丢弃，但是 <code>bar</code>的活动对象依然在内存中，因为匿名的 <code>[[Scope]]</code> 属性还在引用这个活动对象，而匿名函数赋值给了 <code>fn</code>,  <code>fn</code> 仍然存在于内存中。</p>
+<p>执行 <code>fn</code>, <code>fn</code> 自身的活动对象并没有变量 <code>a</code>, 所以顺着作用域链查找 <code>a</code>, 可在 <code>bar</code>  遗留的活动对象中找到。</p>
+<h3 id="总结一下-1"><a href="#总结一下-1" class="headerlink" title="总结一下"></a>总结一下</h3><p>重新捡起闭包这两个字，《JavaScript 高级程序设计》这样定义闭包：</p>
+<blockquote>
+<p>闭包是有权访问另一个函数作用域中变量的函数。</p>
+</blockquote>
+<p>结合上面的例子，可以知道 <code>fn</code> 就是一个闭包，因为它有权访问另一个作用域 <code>bar</code> 内的变量。</p>
+<h2 id="块级作用域"><a href="#块级作用域" class="headerlink" title="块级作用域"></a>块级作用域</h2><h3 id="举个栗子-2"><a href="#举个栗子-2" class="headerlink" title="举个栗子"></a>举个栗子</h3><p>看简单的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i ++) &#123;</div><div class="line">  <span class="keyword">if</span> (i === <span class="number">2</span>) &#123;</div><div class="line">    <span class="keyword">var</span> b = <span class="number">200</span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(b) <span class="comment">// 200</span></div></pre></td></tr></table></figure>
+<p>上面的代码输出了 <code>200</code>, 可不要被 <code>for</code> 和 <code>if</code> 的花括号施了障眼法，误以为输出结果是 <code>undefined</code>.</p>
+<p>上面的 <code>for</code> 和 <code>if</code> 用花括号包起来的代码块，并没与自己的执行环境，所以上面的代码只有一个全局的执行环境，变量都保存在全局的变量对象里面。这就解释了外层为什么能访问花裤号内部的变量。</p>
+<h3 id="再举个栗子"><a href="#再举个栗子" class="headerlink" title="再举个栗子"></a>再举个栗子</h3><p>看简单的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i ++) &#123;</div><div class="line">  <span class="keyword">if</span> (i === <span class="number">2</span>) &#123;</div><div class="line">    <span class="keyword">const</span> b = <span class="number">200</span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(i) <span class="comment">// Uncaught ReferenceError: i is not defined</span></div><div class="line"><span class="built_in">console</span>.log(b) <span class="comment">// Uncaught ReferenceError: b is not defined</span></div></pre></td></tr></table></figure>
+<p><code>ES6</code> 中的 <code>let</code> 和 <code>const</code> 能够形成块级作用域，用 <code>let</code> 和 <code>const</code> 声明的变量，只能在花括号内部访问。</p>
+<h3 id="总结一下-2"><a href="#总结一下-2" class="headerlink" title="总结一下"></a>总结一下</h3><p>简单地用花括号包起来的代码块，是没有自己的执行环境，形成不了作用域的。而 <code>let</code> 和 <code>const</code> 命令声明的变量，只能在花括号内部访问。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>作用域和执行环境有关，函数拥有自己的执行环境，创建活动对象，作为自己的变量对象，就形成了作用域。</p>
+<p>而简单的用花括号包起来的代码，没有自己的执行环境，当然也形成不了作用域，但是 <code>let</code> 和 <code>const</code> 命令声明的变量，只能在花括号内部访问。</p>
+<p>作用域链将内部执行环境的变量对象与外部的变量对象依次保存，使得内部可以访问外部的变量。</p>
+<p>当函数 <code>a</code> 的活动对象被函数外的另一个函数 <code>b</code> 引用，函数 <code>b</code> 就是闭包，可以访问函数 <code>a</code> 内的变量。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2019/08/31/JavaScript作用域/" class="archive-article-date">
+  	<time datetime="2019-08-31T03:31:03.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-08-31</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/作用域/">作用域</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/26/JavaScript-简单粗暴浅拷贝-钻牛角尖深拷贝/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JavaScript:简单粗暴浅拷贝,钻牛角尖深拷贝</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 菲利普马洛
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vue-js/" style="font-size: 10px;">vue.js</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/函数防抖/" style="font-size: 10px;">函数防抖</a> <a href="/tags/样式/" style="font-size: 10px;">样式</a> <a href="/tags/相对路径/" style="font-size: 10px;">相对路径</a> <a href="/tags/绝对路径/" style="font-size: 10px;">绝对路径</a> <a href="/tags/节流/" style="font-size: 10px;">节流</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接1</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接2</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接3</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接4</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接5</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://localhost:4000/">友情链接6</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
