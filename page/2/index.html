@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Vuex | zhongyangxun</title>
+  <title>zhongyangxun</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="zhongyangxun">
-<meta property="og:url" content="http://yoursite.com/tags/Vuex/index.html">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="zhongyangxun">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="zhongyangxun">
@@ -131,52 +131,108 @@
       <div class="body-wrap">
         
   
-  
+    <article id="post-相对路径与绝对路径" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/17/Vuex基本使用/" class="archive-article-date">
-  	<time datetime="2019-06-17T05:40:05.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-06-17</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/17/Vuex基本使用/">Vuex 基本使用</a>
+      <a class="article-title" href="/2017/08/21/相对路径与绝对路径/">相对路径与绝对路径</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>对于相对路径和绝对路径的了解一直以来都不甚清晰，只知道从根目录开始的是绝对路径，相对于当前文件的是相对路径。</p>
+<p>之前写代码所用的URL是相对路径，类似于这种：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">background-image:url(img/beatles.jpg)</div></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/jquery.min.js"</span> &gt;</span><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="xml"></span></span></div><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/blur.jpg"</span> &gt;</span></div></pre></td></tr></table></figure>
+<p>直到开始学习Vue.js，在代码里出现的路径如 :</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span></div></pre></td></tr></table></figure>
+<p>就有点懵，<code>App</code>前面的那个<code>./</code>是什么鬼？<br>完全不知道是为什么要这么写，才想起来去Google。</p>
+<p>关于相对路径和绝对路径的规则，总结如下：</p>
+<ol>
+<li>绝对路径是从根目录一直到目的文件的完整路径</li>
+<li>相对路径是一部分的路径，其表示的位置取决于特定的前缀</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>含义</th>
+<th>种类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.</code></td>
+<td>表示当前目录</td>
+<td>相对路径</td>
+</tr>
+<tr>
+<td>没有前缀</td>
+<td>当前目录</td>
+<td>相对路径</td>
+</tr>
+<tr>
+<td><code>..</code></td>
+<td>表示上一层目录</td>
+<td>相对路径</td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>代表根目录</td>
+<td>绝对路径</td>
+</tr>
+<tr>
+<td><code>D:/</code></td>
+<td>当然是根目录</td>
+<td>绝对路径</td>
+</tr>
+</tbody>
+</table>
+<p><em>注：在D盘里上面的 <code>/</code>等同于 <code>D:/</code></em></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2017/08/21/相对路径与绝对路径/" class="archive-article-date">
+  	<time datetime="2017-08-21T15:35:31.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-08-21</time>
+</a>
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vuex/">Vuex</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-js/">vue.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/相对路径/">相对路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/绝对路径/">绝对路径</a></li></ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
+  
 
 
       </div>
@@ -198,10 +254,10 @@
 		fancybox: true,
 		mathjax: false,
 		animate: true,
-		isHome: false,
+		isHome: true,
 		isPost: false,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		root: "/",

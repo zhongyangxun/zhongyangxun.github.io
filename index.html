@@ -131,6 +131,90 @@
       <div class="body-wrap">
         
   
+    <article id="post-React添加环境变量" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/16/React添加环境变量/">React添加环境变量</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>通常情况下，开发环境和线上环境用的 API 的 URL 不是同一个，所以并不能将 URL 写死，而是要根据不同的环境，使用不同的 API.</p>
+<h2 id="内置环境"><a href="#内置环境" class="headerlink" title="内置环境"></a>内置环境</h2><p><code>create-react-app</code> 创建的项目有内置的环境变量  <code>NODE_ENV</code>, 在 JavaScript 代码中可通过 <code>process.env.NODE_ENV</code> 读取它。</p>
+<p><code>NODE_ENV</code> 默认有三个可能的值，分别是 <code>development</code>, <code>test</code> 和 <code>production</code>, 对应开发，测试，生产环境。</p>
+<p>运行 <code>npm start</code>, <code>NODE_ENV</code> 的值为 <code>development</code>;  <code>npm run test</code> 则是 <code>test</code>; <code>npm run build</code>  则对应 <code>prodution</code>.</p>
+<p>比如开发环境的 API 的 URL 为 <code>urlDev</code>, 生产环境的 URL 为 <code>urlProd</code>, 就可通过环境变量，判断当前环境，使用相应的 URL：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> env = process.env.NODE_ENV</div><div class="line"></div><div class="line"><span class="keyword">let</span> baseUrl = <span class="string">''</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> (env === <span class="string">'development'</span>) &#123;</div><div class="line">  baseUrl = urlDev</div><div class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (env === <span class="string">'production'</span>) &#123;</div><div class="line">  baseUrl = urlProd</div><div class="line">&#125;</div><div class="line"></div><div class="line">get(baseUrl) <span class="comment">// 伪代码，表示请求动作</span></div><div class="line">...</div></pre></td></tr></table></figure>
+<p>一般来说，这三个值够用了。</p>
+<p>但是需要更多环境的话呢，比如，需要一个开发环境，一个测试环境，一个 UAT (User Acceptance Testing) 环境，一个 stage 环境，一个 production 环境。</p>
+<p>掰掰手指数一数，发现上面三兄弟不够用了。</p>
+<p>这个时候需要自定义环境变量。</p>
+<h2 id="多环境"><a href="#多环境" class="headerlink" title="多环境"></a>多环境</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>求助于<a href="https://www.html.cn/create-react-app/docs/adding-custom-environment-variables/" target="_blank" rel="external">文档</a>，给了两个方法：</p>
+<ol>
+<li><p>shell 环境添加，写在命令行，类似运行下面这样的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">set &quot;REACT_APP_SECRET_CODE=abcdef&quot; &amp;&amp; npm start</div></pre></td></tr></table></figure>
+<p>但是这种方式只是在 Shell 中添加临时的变量，JavaScript 是读取不到的。</p>
+</li>
+<li><p>在 <code>.env</code> 文件添加，即在项目的根目录添加一个名为 <code>.env</code>的文件，在里面添加环境变量，这样的变量在 JavaScript 是可以读取到的。</p>
+<p>还有不同的文件名可在不同的环境进行覆盖，比如将文件命名为 <code>.env.development</code>, 在开发环境即可读取文件内定义的变量。同样，<code>.env.test</code> 和 <code>.env.production</code> 分别对应测试环境和生产环境。</p>
+<p>这种方式，显而易见，只支持内置的三个环境。</p>
+</li>
+</ol>
+<p>文档里面还透漏一个重要信息，react 只读取 <code>REACT_APP</code> 开头的变量，其他的，表示不认识。</p>
+<p>比如简单写个 <code>MY_ENV</code>, 是会被 <code>React</code> 忽略的，而 <code>REACT_APP_ENV</code> 就会被读取。</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>有个思路，就是从命令行入手，然后搞一个 JavaScript 可以读到的永久环境变量。</p>
+<p>这里需要 <a href="https://github.com/kentcdodds/cross-env" target="_blank" rel="external"><code>cross-env</code></a>, <code>cross-env</code> 设计是为了定义全平台兼容的环境变量命令，因为 Windows 在设置环境变量的命令会出现阻塞问题。</p>
+<p>首先安装 <code>cross-env</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save-dev cross-env</div></pre></td></tr></table></figure>
+<p>然后在 <code>package.json</code> 的 <code>scripts</code> 里面添加代码。</p>
+<p>比如我要设置 stage 环境下的环境变量 <code>REACT_APP_ENV</code> 为 <code>stage</code>, 只需在 <code>package.json</code> 添加如下代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">"build:stage": "cross-env REACT_APP_ENV=stage react-scripts build"</div></pre></td></tr></table></figure>
+<p>其中 <code>cross-env REACT_APP_ENV=stage</code> 定义了 <code>REACT_APP_ENV</code> 为 <code>stage</code>.</p>
+<p>然后得到：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">"scripts": &#123;</div><div class="line">	"start": "react-scripts start",</div><div class="line">    "build": "react-scripts build",</div><div class="line">    "build:stage": "cross-env REACT_APP_ENV=stage react-scripts build",</div><div class="line">	"test": "react-scripts test",</div><div class="line">	"eject": "react-scripts eject"</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样一来，运行 <code>npm run build:stage</code> 打包之后，<code>process.env.REACT_APP_ENV</code> 的值即为 <code>&#39;stage&#39;</code>.</p>
+<p>其他要添加什么环境，以此类推。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2019/10/16/React添加环境变量/" class="archive-article-date">
+  	<time datetime="2019-10-16T15:57:53.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-10-16</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/配置/">配置</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-JavaScript作用域" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -890,103 +974,10 @@
 
 
   
-    <article id="post-相对路径与绝对路径" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/21/相对路径与绝对路径/">相对路径与绝对路径</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>对于相对路径和绝对路径的了解一直以来都不甚清晰，只知道从根目录开始的是绝对路径，相对于当前文件的是相对路径。</p>
-<p>之前写代码所用的URL是相对路径，类似于这种：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">background-image:url(img/beatles.jpg)</div></pre></td></tr></table></figure></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/jquery.min.js"</span> &gt;</span><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="xml"></span></span></div><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/blur.jpg"</span> &gt;</span></div></pre></td></tr></table></figure>
-<p>直到开始学习Vue.js，在代码里出现的路径如 :</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span></div></pre></td></tr></table></figure>
-<p>就有点懵，<code>App</code>前面的那个<code>./</code>是什么鬼？<br>完全不知道是为什么要这么写，才想起来去Google。</p>
-<p>关于相对路径和绝对路径的规则，总结如下：</p>
-<ol>
-<li>绝对路径是从根目录一直到目的文件的完整路径</li>
-<li>相对路径是一部分的路径，其表示的位置取决于特定的前缀</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>前缀</th>
-<th>含义</th>
-<th>种类</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>.</code></td>
-<td>表示当前目录</td>
-<td>相对路径</td>
-</tr>
-<tr>
-<td>没有前缀</td>
-<td>当前目录</td>
-<td>相对路径</td>
-</tr>
-<tr>
-<td><code>..</code></td>
-<td>表示上一层目录</td>
-<td>相对路径</td>
-</tr>
-<tr>
-<td><code>/</code></td>
-<td>代表根目录</td>
-<td>绝对路径</td>
-</tr>
-<tr>
-<td><code>D:/</code></td>
-<td>当然是根目录</td>
-<td>绝对路径</td>
-</tr>
-</tbody>
-</table>
-<p><em>注：在D盘里上面的 <code>/</code>等同于 <code>D:/</code></em></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2017/08/21/相对路径与绝对路径/" class="archive-article-date">
-  	<time datetime="2017-08-21T15:35:31.000Z" itemprop="datePublished"><i class="icon-clock"></i>2017-08-21</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue-js/">vue.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/相对路径/">相对路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/绝对路径/">绝对路径</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -1048,7 +1039,7 @@
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vue-js/" style="font-size: 10px;">vue.js</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/函数防抖/" style="font-size: 10px;">函数防抖</a> <a href="/tags/样式/" style="font-size: 10px;">样式</a> <a href="/tags/相对路径/" style="font-size: 10px;">相对路径</a> <a href="/tags/绝对路径/" style="font-size: 10px;">绝对路径</a> <a href="/tags/节流/" style="font-size: 10px;">节流</a>
+    				<a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Vuex/" style="font-size: 10px;">Vuex</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vue-js/" style="font-size: 10px;">vue.js</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/函数防抖/" style="font-size: 10px;">函数防抖</a> <a href="/tags/样式/" style="font-size: 10px;">样式</a> <a href="/tags/相对路径/" style="font-size: 10px;">相对路径</a> <a href="/tags/绝对路径/" style="font-size: 10px;">绝对路径</a> <a href="/tags/节流/" style="font-size: 10px;">节流</a> <a href="/tags/配置/" style="font-size: 10px;">配置</a>
     			</div>
     	</section>
     

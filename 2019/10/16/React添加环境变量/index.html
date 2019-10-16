@@ -6,39 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>JavaScript 节流函数 | zhongyangxun</title>
+  <title>React添加环境变量 | zhongyangxun</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="简介“节流”，字典上这么解释：
-
-[throttle]∶节制流入或流出,尤指用节流阀调节。
-
-那节流函数 (throttle) 就是 “节制流入或流出的函数”，越来越绕了，这是什么鬼？刚开始接触这种名词，反正我是有点摸不着头脑，略抽象，不好理解。
-那放下这术语不管，先看看为什么要用它。
-场景页面事件中，scroll, resize 和 mousemove 事件都有一个共同点，就是会频繁地被触发。举">
+  <meta name="description" content="通常情况下，开发环境和线上环境用的 API 的 URL 不是同一个，所以并不能将 URL 写死，而是要根据不同的环境，使用不同的 API.
+内置环境create-react-app 创建的项目有内置的环境变量  NODE_ENV, 在 JavaScript 代码中可通过 process.env.NODE_ENV 读取它。
+NODE_ENV 默认有三个可能的值，分别是 development, te">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript 节流函数">
-<meta property="og:url" content="http://yoursite.com/2019/06/22/JavaScript节流函数/index.html">
+<meta property="og:title" content="React添加环境变量">
+<meta property="og:url" content="http://yoursite.com/2019/10/16/React添加环境变量/index.html">
 <meta property="og:site_name" content="zhongyangxun">
-<meta property="og:description" content="简介“节流”，字典上这么解释：
-
-[throttle]∶节制流入或流出,尤指用节流阀调节。
-
-那节流函数 (throttle) 就是 “节制流入或流出的函数”，越来越绕了，这是什么鬼？刚开始接触这种名词，反正我是有点摸不着头脑，略抽象，不好理解。
-那放下这术语不管，先看看为什么要用它。
-场景页面事件中，scroll, resize 和 mousemove 事件都有一个共同点，就是会频繁地被触发。举">
-<meta property="og:image" content="http://yoursite.com/images/javascript-function-throttle/before_throttle.gif">
-<meta property="og:image" content="http://yoursite.com/images/javascript-function-throttle/after_throttle.gif">
-<meta property="og:updated_time" content="2019-07-20T06:14:52.151Z">
+<meta property="og:description" content="通常情况下，开发环境和线上环境用的 API 的 URL 不是同一个，所以并不能将 URL 写死，而是要根据不同的环境，使用不同的 API.
+内置环境create-react-app 创建的项目有内置的环境变量  NODE_ENV, 在 JavaScript 代码中可通过 process.env.NODE_ENV 读取它。
+NODE_ENV 默认有三个可能的值，分别是 development, te">
+<meta property="og:updated_time" content="2019-10-16T16:00:00.928Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript 节流函数">
-<meta name="twitter:description" content="简介“节流”，字典上这么解释：
-
-[throttle]∶节制流入或流出,尤指用节流阀调节。
-
-那节流函数 (throttle) 就是 “节制流入或流出的函数”，越来越绕了，这是什么鬼？刚开始接触这种名词，反正我是有点摸不着头脑，略抽象，不好理解。
-那放下这术语不管，先看看为什么要用它。
-场景页面事件中，scroll, resize 和 mousemove 事件都有一个共同点，就是会频繁地被触发。举">
-<meta name="twitter:image" content="http://yoursite.com/images/javascript-function-throttle/before_throttle.gif">
+<meta name="twitter:title" content="React添加环境变量">
+<meta name="twitter:description" content="通常情况下，开发环境和线上环境用的 API 的 URL 不是同一个，所以并不能将 URL 写死，而是要根据不同的环境，使用不同的 API.
+内置环境create-react-app 创建的项目有内置的环境变量  NODE_ENV, 在 JavaScript 代码中可通过 process.env.NODE_ENV 读取它。
+NODE_ENV 默认有三个可能的值，分别是 development, te">
   
     <link rel="alternative" href="/atom.xml" title="zhongyangxun" type="application/atom+xml">
   
@@ -154,7 +139,7 @@
 </nav>
 
       <div class="body-wrap">
-        <article id="post-JavaScript节流函数" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-React添加环境变量" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -164,7 +149,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      JavaScript 节流函数
+      React添加环境变量
     </h1>
   
 
@@ -172,50 +157,53 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>“节流”，字典上这么解释：</p>
-<blockquote>
-<p>[throttle]∶节制流入或流出,尤指用节流阀调节。</p>
-</blockquote>
-<p>那节流函数 (throttle) 就是 “节制流入或流出的函数”，越来越绕了，这是什么鬼？刚开始接触这种名词，反正我是有点摸不着头脑，略抽象，不好理解。</p>
-<p>那放下这术语不管，先看看为什么要用它。</p>
-<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>页面事件中，scroll, resize 和 mousemove 事件都有一个共同点，就是会频繁地被触发。举个例子，那 scroll 来看好了。</p>
-<p>先写一段代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> num = <span class="number">1</span></div><div class="line"><span class="built_in">window</span>.onscroll = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(num++)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这里监听了页面的 scroll 事件，当页面滚动时，打印出递增的数字。</p>
-<p>下图是运行结果，可以看到，console 里面疯狂输出：</p>
-<p><img src="/images/javascript-function-throttle/before_throttle.gif" alt=""></p>
-<p>回想一下最常用的 click  事件，是不是老老实实，点一次，执行一次。而 scroll 呢，滚动一小段，好几次就去了。这里还好，不涉及到 DOM 操作，要是在 scroll 事件中处理 DOM 元素，那页面性能肯定受到影响，笔记本风扇说不定随着滚动的页面呼呼作响，或者页面一卡一卡卡出心脏病。</p>
-<p>让它消停点的办法，就是让回调少执行几次。提到让疯狂执行的函数少执行几次，限制它的行为，“节流”这个概念是不是隐隐约约出现，不再那么抽象了？就好比把水龙头关小一点，让水慢慢流。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>怎么让这个函数慢慢流呢？</p>
-<p>设想一下，页面一直在滚动，根本停不下来。这个时候，回调也一直在触发，噼里啪啦。</p>
-<p>和它商量一下： “你能不能隔几秒执行一次?”</p>
-<p>“隔几秒？”</p>
-<p>“两百毫秒吧。”</p>
-<p>节流函数就是给这种高频率触发的函数，规定一个时间间隔，就是这一次执行和下一次执行的时间间隔。</p>
-<p>有点像游戏里面的技能冷却时间，放了技能，进入冷却时间，这期间，就算不停地点技能，也放不了，只能等冷却好，再放。</p>
-<p>千言万语不如上代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> throttle = <span class="function">(<span class="params">func, ms = <span class="number">200</span></span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">let</span> prev = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime()</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>) </span>&#123;</div><div class="line">    <span class="keyword">let</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime()</div><div class="line">    <span class="keyword">if</span> (now - prev &gt;= ms) &#123;</div><div class="line">      func()</div><div class="line">      prev = now</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这里的 throttle 函数接受一个函数 <code>func</code> 和一个毫秒数 <code>ms</code> 作为参数，返回一个函数。当返回的函数不停地被触发，只有满足两次触发间隔大于或者等于规定的毫秒数，传入的 <code>func</code> 才执行。</p>
-<p>这个间隔是用时间戳来判断的。首先定义变量 <code>prev</code> 记录一个时间，在返回的函数中，取得它执行时的时间戳 <code>now</code>，比较两个时间戳，假如间隔大于规定的毫秒数 <code>ms</code>，就执行传入的 <code>func</code> 函数。</p>
-<p>拿上面的例子再举个例子：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> num = <span class="number">1</span></div><div class="line"><span class="built_in">window</span>.onscroll = throttle(<span class="function"><span class="params">()</span>=&gt;</span> &#123;<span class="built_in">console</span>.log(num++)&#125;, <span class="number">2000</span>)</div></pre></td></tr></table></figure>
-<p>这里监听页面滚动事件，每两秒触发一次回调函数。如下所示（没有慢放）：</p>
-<p><img src="/images/javascript-function-throttle/after_throttle.gif" alt=""></p>
-<p>当然，实际开发中，不会两秒一次这么夸张。这里只是为了更明显地观察到节流函数的作用。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>节流函数为高频率触发的回调设定一个执行周期，减少对页面性能的损耗。</p>
-<p>可用于 resize, scroll, mousemove 这些事件的回调函数。</p>
+        <p>通常情况下，开发环境和线上环境用的 API 的 URL 不是同一个，所以并不能将 URL 写死，而是要根据不同的环境，使用不同的 API.</p>
+<h2 id="内置环境"><a href="#内置环境" class="headerlink" title="内置环境"></a>内置环境</h2><p><code>create-react-app</code> 创建的项目有内置的环境变量  <code>NODE_ENV</code>, 在 JavaScript 代码中可通过 <code>process.env.NODE_ENV</code> 读取它。</p>
+<p><code>NODE_ENV</code> 默认有三个可能的值，分别是 <code>development</code>, <code>test</code> 和 <code>production</code>, 对应开发，测试，生产环境。</p>
+<p>运行 <code>npm start</code>, <code>NODE_ENV</code> 的值为 <code>development</code>;  <code>npm run test</code> 则是 <code>test</code>; <code>npm run build</code>  则对应 <code>prodution</code>.</p>
+<p>比如开发环境的 API 的 URL 为 <code>urlDev</code>, 生产环境的 URL 为 <code>urlProd</code>, 就可通过环境变量，判断当前环境，使用相应的 URL：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> env = process.env.NODE_ENV</div><div class="line"></div><div class="line"><span class="keyword">let</span> baseUrl = <span class="string">''</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> (env === <span class="string">'development'</span>) &#123;</div><div class="line">  baseUrl = urlDev</div><div class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (env === <span class="string">'production'</span>) &#123;</div><div class="line">  baseUrl = urlProd</div><div class="line">&#125;</div><div class="line"></div><div class="line">get(baseUrl) <span class="comment">// 伪代码，表示请求动作</span></div><div class="line">...</div></pre></td></tr></table></figure>
+<p>一般来说，这三个值够用了。</p>
+<p>但是需要更多环境的话呢，比如，需要一个开发环境，一个测试环境，一个 UAT (User Acceptance Testing) 环境，一个 stage 环境，一个 production 环境。</p>
+<p>掰掰手指数一数，发现上面三兄弟不够用了。</p>
+<p>这个时候需要自定义环境变量。</p>
+<h2 id="多环境"><a href="#多环境" class="headerlink" title="多环境"></a>多环境</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>求助于<a href="https://www.html.cn/create-react-app/docs/adding-custom-environment-variables/" target="_blank" rel="external">文档</a>，给了两个方法：</p>
+<ol>
+<li><p>shell 环境添加，写在命令行，类似运行下面这样的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">set &quot;REACT_APP_SECRET_CODE=abcdef&quot; &amp;&amp; npm start</div></pre></td></tr></table></figure>
+<p>但是这种方式只是在 Shell 中添加临时的变量，JavaScript 是读取不到的。</p>
+</li>
+<li><p>在 <code>.env</code> 文件添加，即在项目的根目录添加一个名为 <code>.env</code>的文件，在里面添加环境变量，这样的变量在 JavaScript 是可以读取到的。</p>
+<p>还有不同的文件名可在不同的环境进行覆盖，比如将文件命名为 <code>.env.development</code>, 在开发环境即可读取文件内定义的变量。同样，<code>.env.test</code> 和 <code>.env.production</code> 分别对应测试环境和生产环境。</p>
+<p>这种方式，显而易见，只支持内置的三个环境。</p>
+</li>
+</ol>
+<p>文档里面还透漏一个重要信息，react 只读取 <code>REACT_APP</code> 开头的变量，其他的，表示不认识。</p>
+<p>比如简单写个 <code>MY_ENV</code>, 是会被 <code>React</code> 忽略的，而 <code>REACT_APP_ENV</code> 就会被读取。</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>有个思路，就是从命令行入手，然后搞一个 JavaScript 可以读到的永久环境变量。</p>
+<p>这里需要 <a href="https://github.com/kentcdodds/cross-env" target="_blank" rel="external"><code>cross-env</code></a>, <code>cross-env</code> 设计是为了定义全平台兼容的环境变量命令，因为 Windows 在设置环境变量的命令会出现阻塞问题。</p>
+<p>首先安装 <code>cross-env</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save-dev cross-env</div></pre></td></tr></table></figure>
+<p>然后在 <code>package.json</code> 的 <code>scripts</code> 里面添加代码。</p>
+<p>比如我要设置 stage 环境下的环境变量 <code>REACT_APP_ENV</code> 为 <code>stage</code>, 只需在 <code>package.json</code> 添加如下代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">"build:stage": "cross-env REACT_APP_ENV=stage react-scripts build"</div></pre></td></tr></table></figure>
+<p>其中 <code>cross-env REACT_APP_ENV=stage</code> 定义了 <code>REACT_APP_ENV</code> 为 <code>stage</code>.</p>
+<p>然后得到：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">"scripts": &#123;</div><div class="line">	"start": "react-scripts start",</div><div class="line">    "build": "react-scripts build",</div><div class="line">    "build:stage": "cross-env REACT_APP_ENV=stage react-scripts build",</div><div class="line">	"test": "react-scripts test",</div><div class="line">	"eject": "react-scripts eject"</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样一来，运行 <code>npm run build:stage</code> 打包之后，<code>process.env.REACT_APP_ENV</code> 的值即为 <code>&#39;stage&#39;</code>.</p>
+<p>其他要添加什么环境，以此类推。</p>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2019/06/22/JavaScript节流函数/" class="archive-article-date">
-  	<time datetime="2019-06-22T05:20:03.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-06-22</time>
+      <a href="/2019/10/16/React添加环境变量/" class="archive-article-date">
+  	<time datetime="2019-10-16T15:57:53.000Z" itemprop="datePublished"><i class="icon-clock"></i>2019-10-16</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/节流/">节流</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/配置/">配置</a></li></ul>
 	</div>
 
       
@@ -228,18 +216,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/06/29/JavaScript 函数防抖了解一下/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          JavaScript 函数防抖了解一下
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/06/17/Vuex基本使用/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Vuex 基本使用</div>
+    <a href="/2019/08/31/JavaScript作用域/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JavaScript 作用域</div>
       <i class="icon-circle-right"></i>
     </a>
   
